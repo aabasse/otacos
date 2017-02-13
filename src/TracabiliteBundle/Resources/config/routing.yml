@@ -1,0 +1,10 @@
+tracabilite_index:
+    path:     /
+    defaults: { _controller: TracabiliteBundle:Tracabilite:index }
+
+tracabilite_choixElement:
+    path:     nouveau/{slug}
+    defaults: { _controller: TracabiliteBundle:Tracabilite:choixElement }
+
+tracabilite_trace:
+    resource: "@TracabiliteBundle/Resources/config/routing/trace.yml"

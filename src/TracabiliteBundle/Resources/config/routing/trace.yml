@@ -1,0 +1,19 @@
+trace_show:
+    path:     /{id}/show
+    defaults: { _controller: "TracabiliteBundle:Trace:show" }
+    methods:  GET
+
+tracabilite_new:
+    path:     nouveau/{slugCategorie}/{slugElement}
+    defaults: { _controller: TracabiliteBundle:Trace:new }
+    methods:  [GET, POST]
+
+trace_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "TracabiliteBundle:Trace:edit" }
+    methods:  [GET, POST]
+
+trace_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "TracabiliteBundle:Trace:delete" }
+    methods:  DELETE

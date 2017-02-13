@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Accueil:accueil{% endblock %}
+
+{% block body %}
+<h1>Choisissez l'élement</h1>
+
+<div class="text-center">
+	{% for e in elements %}
+		<a href="{{ url('tracabilite_new', {'slugCategorie':e.categorie.slug, 'slugElement':e.slug}) }}">
+		<table class="categorie">
+			<tr>
+				<td class="contImage">
+					{% for el in traces %}
+						{% if(el.id == e.id) %}
+							<i class="fa fa-check fa-2x iconValid" aria-hidden="true"></i>
+						{% endif %}
+					{% endfor %}
+					<img width="auto" height="auto" src="{{asset('images/elements')}}/{{e.image}}" alt="{{e.libelle}}">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					{{e.libelle}}
+				</td>
+			</tr>
+		</table></a>
+	{% endfor %}
+</div>
+
+
+{% endblock %}

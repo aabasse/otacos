@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Trace creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_label(form.date) }}
+        <div class="input-group date">
+        {{ form_widget(form.date) }}
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+
+
+        <div class="input-group">
+            {{ form_label(form.remarque) }}
+            {{ form_widget(form.remarque, {'attr':{'class':'form-control'} }) }}
+        </div>
+
+        <a href="#" id="add-photo">Ajoutter photo</a>
+        <ul id="formPhoto-fields-list"
+        data-prototype="{{ form_widget(form.photos.vars.prototype)|e }}">
+        {% for formPhoto in form.photos %}
+            <li class="element">
+                {{ form_errors(formPhoto) }}
+                {{ form_widget(formPhoto) }}
+            </li>
+        {% endfor %}
+        </ul>
+        {{ form_errors(form) }}
+        <button type="submit">Valider</button>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+    // keep track of how many email fields have been rendered
+    var nbrPhoto = '{{ form.photos|length }}';
+
+    jQuery(document).ready(function() {
+        jQuery('#add-photo').click(function(e) {
+            e.preventDefault();
+
+            var photoList = jQuery('#formPhoto-fields-list');
+
+            // grab the prototype template
+            var newWidget = photoList.attr('data-prototype');
+            // replace the "__name__" used in the id and name of the prototype
+            // with a number that's unique to your emails
+            // end name attribute looks like name="contact[emails][2]"
+            newWidget = newWidget.replace(/__name__/g, nbrPhoto+''+Math.floor((Math.random() * 10) + 1)  );
+            nbrPhoto++;
+
+            // create a new list element and add it to the list
+            var newLi = jQuery('<li class="element"></li>').html(newWidget);
+            newLi.appendTo(photoList);
+
+            addTagFormDeleteLink(newLi);
+        });
+
+        //--------------------------- suppression
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('#formPhoto-fields-list');
+
+        // add a delete link to all of the existing tag form li elements
+        $collectionHolder.find('li.element').each(function(index) {
+            if(index != 0)
+            {
+               addTagFormDeleteLink($(this)); 
+            }
+        });
+
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<a href="#">delete this tag</a>');
+            $tagFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the tag form
+                $tagFormLi.remove();
+                gestionAffichageAdd();
+            });
+            gestionAffichageAdd();
+        }
+
+        function gestionAffichageAdd(){
+            if($('.element').length >= 2)
+            {
+                $("#add-photo").hide();
+            }
+            else{
+                $("#add-photo").show();
+            }
+        }
+
+
+    })
+</script>
+
+
+{% endblock %}

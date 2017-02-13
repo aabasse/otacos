@@ -1,0 +1,3 @@
+services:
+    otacos_gestion.image:
+        class: AppBundle\Services\GestionImage

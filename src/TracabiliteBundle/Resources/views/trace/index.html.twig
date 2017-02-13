@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Traces list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Remarque</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trace in traces %}
+            <tr>
+                <td><a href="{{ path('trace_show', { 'id': trace.id }) }}">{{ trace.id }}</a></td>
+                <td>{% if trace.date %}{{ trace.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ trace.remarque }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('trace_show', { 'id': trace.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('trace_edit', { 'id': trace.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('trace_new') }}">Create a new trace</a>
+        </li>
+    </ul>
+{% endblock %}

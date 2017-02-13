@@ -2,12 +2,49 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block titleHead %}OTacos{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/noty/animate-min.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-datepicker-1.6.4-dist/css/bootstrap-datepicker.min.css') }}"/>
+        <link href="{{ asset('css') }}/style.css" rel="stylesheet">
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+        </header>
+        <section class="container">
+
+            <div class="flash-message hidden" data-type="success">
+                <div>dddddd ddd ssss</div><div><span class="top-right close-white"></span> </div> 
+            </div>
+
+            {% for message in app.session.getFlashBag.get('message') %}
+                <div class="flash-message hidden" data-type="success">
+                    <div>{{ message }}</div><div><span class="top-right close-white"></span> </div> 
+                </div>
+            {% endfor %}
+            {% for erreur in app.session.getFlashBag.get('erreur') %}
+                <div class="flash-message hidden" data-type="error">
+                    <div>{{ erreur }}</div><div><span class="top-right close-white"></span> </div> 
+                </div>
+            {% endfor %}
+
+            <h1>{% block titre %}{% endblock %}</h1>
+            <div>{% block body %}{% endblock %}</div>
+        </section>
+        <footer>
+            
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="{{ asset('plugins/noty/packaged/jquery.noty.packaged.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/noty/themes/zibonzahe-min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/bootstrap-datepicker-1.6.4-dist/js/bootstrap-datepicker.min.js')}}"></script>
+        <script type="text/javascript" src="{{ asset('plugins/bootstrap-datepicker-1.6.4-dist/locales/bootstrap-datepicker.fr.min.js')}}"></script>
+
+        <script src="{{asset('js/main.js')}}" type="text/javascript"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
