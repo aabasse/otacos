@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new TracabiliteBundle\TracabiliteBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new TemperatureBundle\TemperatureBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

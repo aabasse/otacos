@@ -7,18 +7,18 @@
 
 <div class="text-center">
 	{% for c in categories %}
-	<a href="{{url('tracabilite_choixElement', {'slug':c.slug} )}}">
+	<a href="{{url('temperature_choixEquipement', {'slug':c.slug} )}}">
 	<table class="categorie">
 		<tr>
 			<td class="contImage">
-				{% for n in nbr %}
+				{#{% for n in nbr %}
 					{% if(n.categId == c.id) %}
 						<div class="niveau text-right">
 							<span class="bareNiveau" style="width:{{n.prcent}}%;"></span>
 							<span class="topRightm">{{n.nbr}}/{{n.qte}}</span>
 						</div>
 					{% endif %}
-				{% endfor %}
+				{% endfor %}#}
 				<img class="wwimg-thumbnail wwimg-responsive" width="auto" height="auto" src="{{asset('images/categories')}}/{{c.image}}" alt="{{c.libelle}}">
 			</td>
 		</tr>

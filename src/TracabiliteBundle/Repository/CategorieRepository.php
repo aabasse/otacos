@@ -10,9 +10,10 @@ namespace TracabiliteBundle\Repository;
  */
 class CategorieRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getCategoriePere(){
+	public function getCategoriePere($idPere){
 		return $this->createQueryBuilder('c')
-			->andWhere('c.categoriePere is null')
+			->andWhere('c.categoriePere = :categ')
+			->setParameter('categ', $idPere)
 			//->orderBy('c.libelle', 'ASC')
             ->getQuery()->getArrayResult();
 	}

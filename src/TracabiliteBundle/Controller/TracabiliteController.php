@@ -9,7 +9,7 @@ class TracabiliteController extends Controller
     public function indexAction()
     {
     	$em = $this->getDoctrine();
-        $categories  = $em->getRepository("TracabiliteBundle:Categorie")->getCategoriePere();
+        $categories  = $em->getRepository("TracabiliteBundle:Categorie")->getCategoriePere(100);
 
         $nbr = $em->getRepository("TracabiliteBundle:Trace")->getNbrTraceDuJour();
         

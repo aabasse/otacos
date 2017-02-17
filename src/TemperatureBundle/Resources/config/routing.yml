@@ -1,0 +1,7 @@
+temperature_index:
+    path:     /
+    defaults: { _controller: TemperatureBundle:Temperature:index }
+
+temperature_choixEquipement:
+    path:     nouveau/{slug}
+    defaults: { _controller: TemperatureBundle:Temperature:choixEquipement }

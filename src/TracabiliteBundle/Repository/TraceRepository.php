@@ -22,11 +22,25 @@ class TraceRepository extends \Doctrine\ORM\EntityRepository
 	public function getNbrTraceDuJour(){
 		$rsm = new ResultSetMapping();
 		$rsm->addScalarResult('nbr', 'nbr');
+		$rsm->addScalarResult('qte', 'qte');
+		$rsm->addScalarResult('prcent', 'prcent');
         $rsm->addScalarResult('categId', 'categId');
 
-		$sql = "SELECT count(e.id) nbr, c.id categId from categorie c
-			LEFT JOIN element e ON c.id = e.categorie_id
-			JOIN trace t ON e.id = t.element_id group by c.id";
+		$sql = "SELECT tqte.categId, coalesce(tnbr.nbr,0) as nbr, tqte.qte, coalesce(  TRUNCATE(sum((tnbr.nbr/tqte.qte)*100),0)   , 0) as prcent From
+
+			(SELECT count(e.id) qte, c.id categId from categorie c
+						LEFT JOIN element e ON c.id = e.categorie_id
+						LEFT JOIN trace t ON e.id = t.element_id group by c.id ) tqte LEFT JOIN
+			            
+			(SELECT count(t.id) nbr, c.id categId from categorie c
+						LEFT JOIN element e ON c.id = e.categorie_id
+						LEFT JOIN trace t ON e.id = t.element_id 
+						where t.date = '".date("Y-m-d")."'
+						group by c.id) tnbr
+			ON tnbr.categId = tqte.categId
+			group by tqte.categId";
+
+			//echo($sql);die();
 
 		//$em = $this->getDoctrine()->getManager();
 
