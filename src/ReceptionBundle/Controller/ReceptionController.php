@@ -24,10 +24,13 @@ class ReceptionController extends Controller
         $em = $this->getDoctrine();
         $categories  = $em->getRepository("TracabiliteBundle:Categorie")->getCategoriePere(300);
 
-        $categValid = $em->getRepository("ReceptionBundle:Reception")->getCategValidDuJour($categ, $this->getUser()->getEntreprise());
+        $categValid = $em->getRepository("ReceptionBundle:Reception")->getCategValidDuJour($this->getUser()->getEntreprise());
+
+        //dump($categValid);die();
 
         return $this->render('ReceptionBundle:reception:index.html.twig', array(
             'categories'=>$categories,
+            'categValid'=>$categValid,
         ));
     }
 

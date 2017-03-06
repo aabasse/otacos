@@ -18,6 +18,11 @@
                         </span>
                     {% endif %}
                 {% endfor %}#}
+                {% for cValid in categValid %}
+                    {% if(cValid.id == c.id) %}
+                        <i class="fa fa-check fa-2x iconValid" aria-hidden="true"></i>
+                    {% endif %}
+                {% endfor %}
                 <img class="wwimg-thumbnail wwimg-responsive" width="auto" height="auto" src="{{asset('images/categories')}}/{{c.image}}" alt="{{c.libelle}}">
             </td>
         </tr>

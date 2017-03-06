@@ -10,12 +10,10 @@ namespace ReceptionBundle\Repository;
  */
 class ReceptionRepository extends \Doctrine\ORM\EntityRepository
 {
-	public function getCategValidDuJour($categorie, $entreprise){
+	public function getCategValidDuJour($entreprise){
 		$res = $this->createQueryBuilder('r')
-			//->join('r.categorie', 'c')
-			//->select('e.id')
-			->andWhere('r.categorie = :categorie')
-			->setParameter('categorie', $categorie )
+			->join('r.categorie', 'c')
+			->select('c.id')
 			->andWhere('r.date = :date')
 			->setParameter('date', date("Y-m-d") )
             ->getQuery()->getScalarResult();
