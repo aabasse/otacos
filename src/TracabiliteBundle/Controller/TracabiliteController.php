@@ -31,8 +31,6 @@ class TracabiliteController extends Controller
 
         $traces  = $em->getRepository("TracabiliteBundle:Trace")->getDuJour();
 
-        //dump($trace);die();
-
         $elements  = $em->getRepository("TracabiliteBundle:Element")->getElementByCategorie($categ);
 
         return $this->render('TracabiliteBundle:tracabilite:choixElement.html.twig', array(

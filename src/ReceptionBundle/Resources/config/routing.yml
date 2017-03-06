@@ -1,0 +1,24 @@
+reception_index:
+    path:     /
+    defaults: { _controller: "ReceptionBundle:Reception:index" }
+    methods:  GET
+
+reception_show:
+    path:     /{id}/show
+    defaults: { _controller: "ReceptionBundle:Reception:show" }
+    methods:  GET
+
+reception_new:
+    path:     /{slugCategorie}/nouveau
+    defaults: { _controller: "ReceptionBundle:Reception:new" }
+    methods:  [GET, POST]
+
+reception_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ReceptionBundle:Reception:edit" }
+    methods:  [GET, POST]
+
+reception_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ReceptionBundle:Reception:delete" }
+    methods:  DELETE

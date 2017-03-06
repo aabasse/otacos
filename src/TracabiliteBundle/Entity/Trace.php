@@ -29,6 +29,12 @@ class Trace
     private $element;
 
     /**
+   * @ORM\ManyToOne(targetEntity="EntrepriseBundle\Entity\Entreprise")
+   * @ORM\JoinColumn(nullable=false)
+   */
+    private $entreprise;
+
+    /**
    * @ORM\OneToMany(targetEntity="TracabiliteBundle\Entity\Photo", mappedBy="trace", cascade={"persist", "remove"})
    * @ORM\JoinColumn(nullable=true)
     * @Assert\Count(
@@ -45,6 +51,8 @@ class Trace
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\NotBlank()
+     * @Assert\Date()
      */
     private $date;
 
@@ -156,7 +164,6 @@ class Trace
     {
         $this->photos[] = $photo;
         $photo->setTrace($this);
-
         return $this;
     }
 
@@ -178,5 +185,29 @@ class Trace
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set entreprise
+     *
+     * @param \EntrepriseBundle\Entity\Entreprise $entreprise
+     *
+     * @return Trace
+     */
+    public function setEntreprise(\EntrepriseBundle\Entity\Entreprise $entreprise)
+    {
+        $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    /**
+     * Get entreprise
+     *
+     * @return \EntrepriseBundle\Entity\Entreprise
+     */
+    public function getEntreprise()
+    {
+        return $this->entreprise;
     }
 }

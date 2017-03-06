@@ -1,0 +1,30 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}AppBundle:Accueil:accueil{% endblock %}
+
+{% block titre %}Choisissez le moment{% endblock %}
+
+{% block contenu %}
+<div class="text-center">
+	{% for moment in moments %}
+	<a href="{{url('temperature_releve_new', {'slugCategorie':slugCategorie, 'moment':moment} )}}">
+	<table class="categorie">
+		<tr>
+			<td class="contImage">
+				{% for momentValide in momentValideDuJour %}
+					{% if(moment == momentValide.moment) %}
+						<i class="fa fa-check fa-2x iconValid" aria-hidden="true"></i>
+					{% endif %}
+				{% endfor %}
+				<img class="wwimg-thumbnail wwimg-responsive" width="auto" height="auto" src="{{asset('images/moments')}}/{{moment}}.png" alt="{{moment}}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				{{moment}}
+			</td>
+		</tr>
+	</table></a>
+	{% endfor %}
+</div>
+{% endblock %}

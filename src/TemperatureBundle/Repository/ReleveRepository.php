@@ -1,6 +1,7 @@
 <?php
 
 namespace TemperatureBundle\Repository;
+use Doctrine\ORM\Query\ResultSetMapping;
 
 /**
  * ReleveRepository
@@ -10,4 +11,87 @@ namespace TemperatureBundle\Repository;
  */
 class ReleveRepository extends \Doctrine\ORM\EntityRepository
 {
+	public $NBR_MOMENT = 2;
+	
+	/*public function getDuJour(){
+		return $this->createQueryBuilder('r')
+			->join('r.categorie', 'c')
+			->select('c.id')
+			->andWhere('r.date = :date')
+			->setParameter('date', date("Y-m-d") )
+            ->getQuery()->getScalarResult();
+	}*/
+
+	public function getMomentValidDuJour($categ, $entreprise){
+		return $this->createQueryBuilder('r')
+			//->join('r.categorie', 'c')
+			->select('r.moment')
+			->andWhere('r.date = :date')
+			->setParameter('date', date("Y-m-d") )
+			->andWhere('r.entreprise = :entreprise')
+			->setParameter('entreprise', $entreprise )
+			->andWhere('r.categorie = :categorie')
+			->setParameter('categorie', $categ )
+            ->getQuery()->getScalarResult();
+	}
+
+	public function getAllArray($entreprise){
+		return $res = $this->createQueryBuilder('r')
+		->andWhere('r.entreprise = :entreprise')->setParameter('entreprise', $entreprise )
+		->join('r.categorie', 'c')
+		->addSelect('c')
+		->leftJoin('r.degres', 'd')
+		->addSelect('d')
+		->getQuery()->getArrayResult();
+	}
+
+	public function getOneByDateAndMoment($moment, $categ){
+		$res = $this->createQueryBuilder('r')
+			->leftjoin('r.degres', 'd')
+			->addSelect('d')
+			->andWhere('r.moment = :moment')
+			->setParameter('moment', $moment )
+			->andWhere('r.date = :date')
+			->setParameter('date', date("Y-m-d") )
+			->andWhere('r.categorie = :categorie')
+			->setParameter('categorie', $categ )
+            ->getQuery()->getResult();
+
+        if(count($res) > 0){
+        	return $res[0];
+        }
+        return null;
+	}
+
+	public function getNbrTraceDuJour($entreprise){
+
+		$rsm = new ResultSetMapping();
+		$rsm->addScalarResult('nbr', 'nbr');
+		$rsm->addScalarResult('qte', 'qte');
+		$rsm->addScalarResult('prcent', 'prcent');
+        $rsm->addScalarResult('categId', 'categId');
+
+		$sql = "SELECT tqte.categId, coalesce(tnbr.nbr,0) as nbr, tqte.qte, coalesce(  TRUNCATE(sum((tnbr.nbr/ ( tqte.qte * ".$this->NBR_MOMENT." )  )*100),0)   , 0) as prcent From
+
+			(SELECT count(*) qte, c.id categId from categorie c
+				where categorie_pere_id = 200 group by c.id ) tqte LEFT JOIN
+			            
+			(SELECT count(r.id) nbr, c.id categId from categorie c
+						LEFT JOIN releve r ON c.id = r.categorie_id	and entreprise_id = ? and r.date = '".date("Y-m-d")."'
+                        where categorie_pere_id = 200
+						group by c.id ) tnbr
+			ON tnbr.categId = tqte.categId
+			group by tqte.categId";
+
+		$query = $this->_em->createNativeQuery($sql, $rsm);
+		$query->setParameter(1, $entreprise);
+
+        $result = $query->getScalarResult();
+
+       foreach ($result as $key => $res) {
+       		$result[$key]['qte'] = $result[$key]['qte'] * $this->NBR_MOMENT;
+       }
+
+        return $result;
+	}
 }

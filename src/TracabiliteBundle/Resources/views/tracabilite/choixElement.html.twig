@@ -1,10 +1,10 @@
-{% extends "::base.html.twig" %}
+{% extends "::layout.html.twig" %}
 
 {% block title %}AppBundle:Accueil:accueil{% endblock %}
 
-{% block body %}
-<h1>Choisissez l'élement</h1>
+{% block titre %}Choisissez l'élement{% endblock %}
 
+{% block contenu %}
 <div class="text-center">
 	{% for e in elements %}
 		<a href="{{ url('tracabilite_new', {'slugCategorie':e.categorie.slug, 'slugElement':e.slug}) }}">

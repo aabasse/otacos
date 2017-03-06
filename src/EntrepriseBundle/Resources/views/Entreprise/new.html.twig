@@ -1,0 +1,17 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}Ajouter une entreprise{% endblock %}
+{% block titre %}Ajouter une entreprise{% endblock %}
+{% block filAriane %}
+<ul>
+    <li>
+        <a href="{{ path('entreprise_index') }}">List des utilisateurs</a>
+    </li>
+</ul>
+{% endblock %}
+{% block contenu %}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="text-center"><button class="btn btn-outline-primary" type="submit">Ajouter</button></div>
+    {{ form_end(form) }}
+{% endblock %}

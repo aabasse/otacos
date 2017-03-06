@@ -1,0 +1,22 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}Entreprise{% endblock %}
+{% block titre %}Entreprise{% endblock %}
+{% block filAriane %}
+<ul>
+    <li>
+        <a href="{{ path('entreprise_index') }}">List des utilisateurs</a>
+    </li>
+</ul>
+{% endblock %}
+{% block contenu %}
+<p>Id : {{ entreprise.id }}</p>
+<p>Nom : {{ entreprise.nom }}</p>
+<p>Logo : {{ entreprise.logo }}</p>
+<div>
+    <a class="btn btn-outline-secondary" href="{{ path('entreprise_edit', { 'id': entreprise.id }) }}">Edit</a>
+    {{ form_start(delete_form, {'attr':{'class' : 'd-inline-block' } }) }}
+        <div class=""><button class="btn btn-outline-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>
+    {{ form_end(delete_form) }}
+</div>
+{% endblock %}

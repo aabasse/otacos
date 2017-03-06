@@ -5,15 +5,18 @@ imports:
     - { resource: "@TracabiliteBundle/Resources/config/services.yml" }
     - { resource: "@AppBundle/Resources/config/services.yml" }
     - { resource: "@TemperatureBundle/Resources/config/services.yml" }
+    - { resource: "@ReceptionBundle/Resources/config/services.yml" }
+    - { resource: "@UtilisateurBundle/Resources/config/services.yml" }
+    - { resource: "@EntrepriseBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr_FR
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -41,6 +44,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'form/fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -81,7 +86,7 @@ swiftmailer:
 fos_user:
     db_driver: orm # other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
-    user_class: AppBundle\Entity\Utilisateur
+    user_class: UtilisateurBundle\Entity\Utilisateur
     from_email:
         address: you@example.com
         sender_name: You

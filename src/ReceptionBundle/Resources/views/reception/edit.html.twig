@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Reception edit</h1>
+
+    {{ form_start(edit_form, {'attr':{class:'form-horizontal'}}) }}
+        {{ form_widget(edit_form) }}
+        <div class="text-center"><button type="submit">Modifier</button></div>
+    {{ form_end(edit_form) }}
+
+    {#
+    <ul>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>#}
+{% endblock %}

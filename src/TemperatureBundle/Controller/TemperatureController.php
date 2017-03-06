@@ -3,6 +3,7 @@
 namespace TemperatureBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use TemperatureBundle\Entity\Releve;
 
 class TemperatureController extends Controller
 {
@@ -10,28 +11,30 @@ class TemperatureController extends Controller
     {
     	$em = $this->getDoctrine();
     	$categories  = $em->getRepository("TracabiliteBundle:Categorie")->getCategoriePere(200);
+    
+        $nbr = $em->getRepository("TemperatureBundle:Releve")->getNbrTraceDuJour($this->getUser()->getEntreprise());
+
         return $this->render('TemperatureBundle:Temperature:index.html.twig', array(
-        		'categories'=>$categories
+        		'categories'=>$categories,
+                'nbr'=>$nbr,
         	));
     }
 
-    public function choixEquipementAction($slug)
+    public function choixMomentAction($slugCategorie)
     {
-    	$em = $this->getDoctrine();
-    	$categ  = $em->getRepository("TracabiliteBundle:Categorie")->findOneBySlug($slug);
-    	if (!$categ) {
+        $em = $this->getDoctrine()->getManager();
+        $categ  = $em->getRepository("TracabiliteBundle:Categorie")->findOneBySlug($slugCategorie);
+        if (!$categ) {
             throw $this->createNotFoundException('Categorie non trouvé.');
         }
 
-        $traces  = $em->getRepository("TracabiliteBundle:Trace")->getDuJour();
+        $momentValideDuJour  = $em->getRepository("TemperatureBundle:Releve")->getMomentValidDuJour($categ, $this->getUser()->getEntreprise());
+        //dump($momentValideDuJour);die();
 
-        //dump($trace);die();
-
-        $elements  = $em->getRepository("TracabiliteBundle:Element")->getElementByCategorie($categ);
-
-        return $this->render('TracabiliteBundle:tracabilite:choixElement.html.twig', array(
-        	'elements'=>$elements,
-            'traces'=>$traces,
+        return $this->render('TemperatureBundle:Temperature:choixMoment.html.twig', array(
+            'slugCategorie' => $slugCategorie,
+            'moments'=> Releve::getLesMoment(),
+            'momentValideDuJour' => $momentValideDuJour,
         ));
     }
 }

@@ -1,12 +1,12 @@
-{% extends "::base.html.twig" %}
+{% extends "::layout.html.twig" %}
 
 {% block title %}AppBundle:Accueil:accueil{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Accueil:accueil page</h1>
-
+{% block titre %}Accueil{% endblock %}
+	
+{% block contenu %}
 <a href="{{url('tracabilite_index')}}">Traçabilité</a>
 <a href="{{url('temperature_index')}}">Temperature</a>
-
-
+<a href="{{url('reception_index')}}">Reception</a>
+<a href="{{url('historique_index')}}">Historique</a>
 {% endblock %}

@@ -1,0 +1,56 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Accueil:accueil{% endblock %}
+
+{% block header %}
+	<div class="row">
+		<div class="col-sm-4 col-6">{{app.user.entreprise}}</div>
+		<div class="col-sm-8 col-6 text-right">
+			<div class="btn-group" role="group">
+			    <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <i class="fa fa-user-o" aria-hidden="true"></i> {{app.user}}
+			    </button>
+			    <div id="dropdownUser" class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+			      <a class="dropdown-item" href="#">Parametre</a>
+			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item" href="{{ url('fos_user_security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion</a>
+			    </div>
+		  	</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row">
+		<nav class="col-4 col-sm-3 col-md-2" id="menuLeft">
+			<ul class="menu">
+				<li>
+					<a href="{{url('accueil')}}"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a>
+				</li>
+				<li>
+					<a href="{{url('tracabilite_index')}}"><i class="fa fa-barcode" aria-hidden="true"></i> Traçabilité</a>
+				</li>
+				<li class="nav-item">
+				<a href="{{url('temperature_index')}}"><i class="fa fa-thermometer-empty" aria-hidden="true"></i> Temperature</a>
+				</li>
+				<li>
+				<a href="{{url('reception_index')}}"><i class="fa fa-truck" aria-hidden="true"></i> Reception</a>
+				</li>
+				<li>
+				<a href="{{url('historique_index')}}"><i class="fa fa-hdd-o" aria-hidden="true"></i> Historique</a>
+				</li>
+				{% if is_granted('ROLE_ADMIN') %}
+					<li><a href="{{url('utilisateur_index')}}"><i class="fa fa-users" aria-hidden="true"></i> Utilisateurs</a></li>
+					<li><a href="{{url('entreprise_index')}}"><i class="fa fa-building-o" aria-hidden="true"></i> Entreprise</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+		<section class="col-8 col-sm-9 col-md-10 offset-4 offset-sm-3 offset-md-2" id="theContenu">
+			<div>{% block filAriane %}{% endblock %}</div>
+			<h1 class="text-center display-4" id="theTitre">{% block titre %}{% endblock %}</h1>
+			{% block contenu %}{% endblock %}
+		</section>
+	</div>
+</div>
+{% endblock %}

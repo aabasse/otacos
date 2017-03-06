@@ -24,19 +24,30 @@ class Photo
 
     /**
    * @ORM\ManyToOne(targetEntity="TracabiliteBundle\Entity\Trace", inversedBy="photos")
-   * @ORM\JoinColumn(nullable=false)
+   * @ORM\JoinColumn(nullable=true)
    */
     private $trace;
+
+    /**
+   * @ORM\ManyToOne(targetEntity="ReceptionBundle\Entity\Reception", inversedBy="photos")
+   * @ORM\JoinColumn(nullable=true)
+   */
+    private $reception;
+
+    /**
+     * @var string
+     *
+     * @Assert\NotNull(message="Sélectionnez une photo", groups={"new"})
+     * @Assert\File(maxSize = "7M", mimeTypes = {"image/gif", "image/jpeg", "image/pjpeg", "image/png"})
+     */
+    private $file;
 
     /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)
-     * @Assert\NotNull(message="Sélectionnez une photo")
-     * @Assert\File(maxSize = "7M", mimeTypes = {"image/gif", "image/jpeg", "image/pjpeg", "image/png"})
      */
     private $url;
-
 
     /**
      * Get id
@@ -48,6 +59,53 @@ class Photo
         return $this->id;
     }
 
+    /**
+     * Set trace
+     *
+     * @param \TracabiliteBundle\Entity\Trace $trace
+     *
+     * @return Photo
+     */
+    public function setTrace(\TracabiliteBundle\Entity\Trace $trace = null)
+    {
+        $this->trace = $trace;
+
+        return $this;
+    }
+
+    /**
+     * Get trace
+     *
+     * @return \TracabiliteBundle\Entity\Trace
+     */
+    public function getTrace()
+    {
+        return $this->trace;
+    }
+
+    /**
+     * Set reception
+     *
+     * @param \ReceptionBundle\Entity\Reception $reception
+     *
+     * @return Photo
+     */
+    public function setReception(\ReceptionBundle\Entity\Reception $reception = null)
+    {
+        $this->reception = $reception;
+
+        return $this;
+    }
+
+    /**
+     * Get reception
+     *
+     * @return \ReceptionBundle\Entity\Reception
+     */
+    public function getReception()
+    {
+        return $this->reception;
+    }
 
     /**
      * Set url
@@ -73,27 +131,16 @@ class Photo
         return $this->url;
     }
 
-    /**
-     * Set trace
-     *
-     * @param \TracabiliteBundle\Entity\Trace $trace
-     *
-     * @return Photo
-     */
-    public function setTrace(\TracabiliteBundle\Entity\Trace $trace = null)
+
+    public function setFile($file)
     {
-        $this->trace = $trace;
+        $this->file = $file;
 
         return $this;
     }
 
-    /**
-     * Get trace
-     *
-     * @return \TracabiliteBundle\Entity\Trace
-     */
-    public function getTrace()
+    public function getFile()
     {
-        return $this->trace;
+        return $this->file;
     }
 }

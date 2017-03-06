@@ -1,0 +1,32 @@
+{% extends "::layout.html.twig" %}
+{% block title %}Choisissez la categorie{% endblock %}
+{% block titre %}Choisissez la categorie{% endblock %}
+{% block contenu %}
+<div class="text-center">
+    {% for c in categories %}
+    <a href="{{url('reception_new', {'slugCategorie':c.slug} )}}">
+    <table class="categorie">
+        <tr>
+            <td class="contImage">
+                {#{% for categValide in categValideDuJour %}
+                    {% if(categValide.id == c.id) %}
+                        <span class="contIconValid">
+                            <i class="fa fa-check fa-2x iconValid" aria-hidden="true"></i>
+                        </span>
+                        <span class="contIconNotValid" style="width: 15px;">
+                            <i class="fa fa-check fa-2x iconValid" aria-hidden="true"></i>
+                        </span>
+                    {% endif %}
+                {% endfor %}#}
+                <img class="wwimg-thumbnail wwimg-responsive" width="auto" height="auto" src="{{asset('images/categories')}}/{{c.image}}" alt="{{c.libelle}}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{c.libelle}}
+            </td>
+        </tr>
+    </table></a>
+    {% endfor %}
+</div>
+{% endblock %}

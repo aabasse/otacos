@@ -1,0 +1,17 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}Ajouter un utilisateur{% endblock %}
+{% block titre %}Ajouter un utilisateur{% endblock %}
+{% block filAriane %}
+<ul>
+    <li>
+        <a href="{{ path('utilisateur_index') }}">List des utilisateurs</a>
+    </li>
+</ul>
+{% endblock %}
+{% block contenu %}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="text-center"><button class="btn btn-outline-primary" type="submit">Ajouter</button></div>
+    {{ form_end(form) }}
+{% endblock %}

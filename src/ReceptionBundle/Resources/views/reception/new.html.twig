@@ -1,0 +1,69 @@
+{% extends "::layout.html.twig" %}
+{% block title %}Reception creation{% endblock %}
+{% block titre %}Reception creation{% endblock %}
+{% block contenu %}
+    {{ form_start(form, {'attr':{'novalidate':'novalidate', class:'form-horizontal'}} ) }}
+
+
+        <div class="form_row form-group offset-md-4 col-md-4">
+          {{ form_label(form.date, null, {'label_attr':{'class':'col-md-12 control-label'} }) }}
+          <div class="col-md-12">
+            <div class="input-group date">
+                {{ form_widget(form.date) }}
+                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            </div>
+            <p class="help-block">{{ form_errors(form.date) }}</p>
+          </div>
+        </div>
+
+        {{form_row(form.degre)}}
+        {{form_row(form.bonLivraison)}}
+        {{form_row(form.remarque)}}
+
+        {#{{ form_label(form.date) }}
+
+        <div class="input-group date">
+        {{ form_widget(form.date) }}
+        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+        
+
+        <div class="input-group">
+            {{ form_label(form.degre) }}
+            {{ form_widget(form.degre, {'attr':{'class':'form-control'} }) }}
+        </div>
+
+        <div class="input-group">
+            {{ form_label(form.bonLivraison) }}
+            {{ form_widget(form.bonLivraison, {'attr':{'class':'form-control'} }) }}
+        </div>
+
+
+        <div class="input-group">
+            {{ form_label(form.remarque) }}
+            {{ form_widget(form.remarque, {'attr':{'class':'form-control'} }) }}
+        </div>#}
+
+        <div class="text-center">
+            <a href="#" id="add-photo" class="btn btn-default"><i class="fa fa-plus" aria-hidden="true"></i> Ajoutter photo</a>
+            <ul data-nbr-photo="{{ form.photos|length }}" class="photo-fields-list" id="formPhoto-fields-list"
+            data-prototype="{{ form_widget(form.photos.vars.prototype)|e }}">
+            {% for formPhoto in form.photos %}
+                <li class="element" data-url="{% if(formPhoto.vars.data.url is not null)%}{{ asset('uploads/images/reception/min_'~formPhoto.vars.data.url) }}{% endif %}"  >
+                    {{ form_widget(formPhoto) }}
+                    {#<div class="contErreurImg">
+                        {{ form_errors(formPhoto) }}
+                    </div>#}
+                </li>
+            {% endfor %}
+            </ul>
+            {{ form_errors(form) }}
+            <button class="btn btn-primary" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Valider</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{asset('js/photo.js')}}"></script>
+{% endblock %}
+

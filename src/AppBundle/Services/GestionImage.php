@@ -7,22 +7,32 @@ use AppBundle\Services\SimpleImage;
 class GestionImage
 {
 	static $TRACE_PHOTO_IMAGE_URL = "uploads/images/trace/";
+    static $RECEPTION_PHOTO_IMAGE_URL = "uploads/images/reception/";
     static $EVENEMENT_IMAGE_URL = "uploads/images/evenement/";
     private $profil_url = 'uploads/images/profil/';
 
+    public function getUrl($type){
+        switch ($type) {
+            case 'trace':
+                $image_url = $this::$TRACE_PHOTO_IMAGE_URL;
+                break;
+            case 'reception':
+                $image_url = $this::$RECEPTION_PHOTO_IMAGE_URL;
+                break;
+        }
+
+        return $image_url;
+    }
 
 	public function telecharger($file,  $options)
 	{
         $options['dossier'] = isset($options['dossier']) ? $options['dossier'] : '';
         $options['prefix'] = isset($options['prefix']) ? $options['prefix'] : '';
-        $options['type'] = isset($options['type']) ? $options['type'] : 'photo';
+        $options['type'] = isset($options['type']) ? $options['type'] : 'trace';
 
 
-        switch ($options['type']) {
-            case 'photo':
-                $image_url = $this::$TRACE_PHOTO_IMAGE_URL;
-                break;
-        }
+        $image_url = $this->getUrl($options['type']);
+
 		$nomImage = null;
 		if($file != null)
         {
@@ -92,16 +102,9 @@ class GestionImage
         @unlink($this->profil_url.'profil_'.$name);
     }
 
-    public function supprimerImageAnnonce($name, $type = 'annonce')
+    public function supprimer($name, $type)
     {
-        switch ($type) {
-            case 'evenement':
-                $image_url = $this::$EVENEMENT_IMAGE_URL;
-                break;
-            default:
-                 $image_url = $this::$ANNONCE_IMAGE_URL;
-                break;
-        }
+        $image_url = $this->getUrl($type);
 
         @unlink($image_url.$name);
         @unlink($image_url.'min_'.$name);

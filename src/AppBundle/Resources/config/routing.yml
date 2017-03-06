@@ -1,3 +1,19 @@
 accueil:
     path:     /
     defaults: { _controller: AppBundle:Accueil:accueil }
+
+historique_index:
+    path:     historique
+    defaults: { _controller: AppBundle:Historique:index }
+
+historique_tracabilite:
+    path:     historique/tracabilite
+    defaults: { _controller: AppBundle:Historique:tracabilite }
+
+historique_temperature:
+    path:     historique/temperature
+    defaults: { _controller: AppBundle:Historique:temperature }
+
+historique_reception:
+    path:     historique/reception
+    defaults: { _controller: AppBundle:Historique:reception }

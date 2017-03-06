@@ -1,3 +1,6 @@
 services:
     otacos_gestion.image:
         class: AppBundle\Services\GestionImage
+    otacos_app.service:
+        class: AppBundle\Services\AppService
+        arguments: ['@service_container']

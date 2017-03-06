@@ -59,12 +59,21 @@ class TraceRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()->getScalarResult();*/
 	}
 
+	public function getAllArray($entreprise){
+		return $res = $this->createQueryBuilder('t')
+		->andWhere('t.entreprise = :entreprise')->setParameter('entreprise', $entreprise )
+		->join('t.element', 'e')
+		->addSelect('e')
+		->leftJoin('t.photos', 'p')
+		->addSelect('p')
+		->getQuery()->getArrayResult();
+	}
+
 	public function getDuJourBySlugElement($slug){
 		$res = $this->createQueryBuilder('t')
 			->join('t.element', 'e')
 			//->select('e.id')
-			->andWhere('e.slug = :slug')
-			->setParameter('slug', $slug )
+			
 			->andWhere('t.date = :date')
 			->setParameter('date', date("Y-m-d") )
             ->getQuery()->getResult();

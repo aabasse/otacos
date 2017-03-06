@@ -154,4 +154,9 @@ class Categorie
     {
         return $this->categoriePere;
     }
+
+    public function __toString()
+    {
+        return ucfirst($this->libelle);
+    }
 }

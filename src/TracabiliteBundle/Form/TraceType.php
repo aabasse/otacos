@@ -17,9 +17,8 @@ class TraceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        //->add('date')
         ->add('date', DateType::Class, array(
-                    'required'  => false,
+                    'required'  => true,
                     'widget' => 'single_text',
                     'format' => 'dd/MM/yyyy',
                     'attr'=>array(
@@ -28,15 +27,15 @@ class TraceType extends AbstractType
                     ),
         ))
         ->add('remarque')
-        //->add('photos')
         ->add('photos', CollectionType::class, array(
             'entry_type'   => PhotoType::class,
             'entry_options'  => array(
-                'attr'      => array('class' => 'email-box')
+                'attr'      => array('class' => 'photos-box')
             ),
             'allow_add' => true,
             'allow_delete'=> true,
             'prototype' => true,
+            'by_reference' => false,
         ))
         ;
     }
@@ -47,7 +46,8 @@ class TraceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TracabiliteBundle\Entity\Trace'
+            'data_class' => 'TracabiliteBundle\Entity\Trace',
+            'validation_groups' => array("Default","new"),
         ));
     }
 

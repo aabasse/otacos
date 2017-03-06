@@ -1,0 +1,17 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}Modifier un utilisateur{% endblock %}
+{% block titre %}Modifier un utilisateur{% endblock %}
+{% block filAriane %}
+<ul>
+        <li>
+            <a href="{{ path('utilisateur_index') }}">List des utilisateurs</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block contenu %}
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <div class="text-center"><button class="btn btn-outline-primary" type="submit">Modifier</button></div>
+    {{ form_end(edit_form) }}
+{% endblock %}

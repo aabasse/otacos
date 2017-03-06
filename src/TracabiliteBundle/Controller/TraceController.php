@@ -41,18 +41,17 @@ class TraceController extends Controller
             throw $this->createNotFoundException('Produit inconnu');
         }
 
-        //dump(new \DateTime());die();
-        //dump(date("Y-m-d"));die();
-        //$trace = $em->getRepository("TracabiliteBundle:Trace")->findOneByDate(new \DateTime());
-        $trace = $em->getRepository("TracabiliteBundle:Trace")->getDuJourBySlugElement($slugElement);
-        //dump($trace);die();
-        if($trace == null){
-            $trace = new Trace();
-            $trace->setDate(new \DateTime());
-            $trace->setElement($element);
-            $photo1 = new Photo();
-            $trace->addPhoto($photo1);
-        }
+
+        $user = $this->getUser();
+        $entreprise = $user->getEntreprise();
+
+        $trace = new Trace();
+        $trace->setEntreprise($entreprise);
+        $trace->setDate(new \DateTime());
+        $trace->setElement($element);
+        $photo1 = new Photo();
+        $trace->addPhoto($photo1);
+        //}
 
         $form = $this->createForm(TraceType::class, $trace);
         $form->handleRequest($request);
@@ -61,14 +60,13 @@ class TraceController extends Controller
             $em = $this->getDoctrine()->getManager();
             $gestionImage = $this->get('otacos_gestion.image');
             foreach ($trace->getPhotos() as $photo) {
-                $originalName = $photo->getUrl()->getClientOriginalName();
-                $photo->setUrl($gestionImage->telecharger($photo->getUrl(), array('prefix'=>$gestionImage::slugify( $originalName ))
+                $originalName = $photo->getFile()->getClientOriginalName();
+                $photo->setUrl($gestionImage->telecharger($photo->getFile(), array('prefix'=>$gestionImage::slugify( $originalName ))
                         ));
-                $photo->setTrace($trace);   
             }
 
             $em->persist($trace);
-            $em->flush($trace);
+            $em->flush();
             //$session->getFlashBag()->add('message', 'Votre annonce a bien été enregistré');
 
             return $this->redirectToRoute('tracabilite_choixElement', array('slug' => $slugCategorie));
@@ -128,8 +126,19 @@ class TraceController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $lesPhotoAsupprimer = array();
+            foreach ($trace->getPhotos() as $photo) {
+                $lesPhotoAsupprimer[] = $photo->getUrl();
+            }
+
             $em->remove($trace);
             $em->flush($trace);
+
+            $gestionImage = $this->get('otacos_gestion.image');
+            foreach ($lesPhotoAsupprimer as $p) {
+                $gestionImage->supprimer($p, 'trace');
+            }
         }
 
         return $this->redirectToRoute('trace_index');

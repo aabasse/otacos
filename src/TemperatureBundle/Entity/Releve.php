@@ -3,6 +3,7 @@
 namespace TemperatureBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Releve
@@ -27,10 +28,30 @@ class Releve
    */
     private $categorie;
 
+
+    /**
+   * @ORM\ManyToOne(targetEntity="EntrepriseBundle\Entity\Entreprise")
+   * @ORM\JoinColumn(nullable=false)
+   */
+    private $entreprise;
+
+    /**
+    * @ORM\OneToMany(targetEntity="TemperatureBundle\Entity\Degre", mappedBy="releve", cascade={"persist"}, orphanRemoval=true)
+    * @Assert\Count(
+    *      min = 1,
+    *      max = 40,
+    *      minMessage = "Au moin une temperature est nécessaire.",
+    *      maxMessage = "Vous ne pouvez pas envoyer plus de {{ limit }} temperature."
+    * )
+    * @Assert\Valid()
+    */
+    private $degres;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\Date()
      */
     private $date;
 
@@ -122,5 +143,74 @@ class Releve
     public function getCategorie()
     {
         return $this->categorie;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->degres = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add degre
+     *
+     * @param \TemperatureBundle\Entity\Degre $degre
+     *
+     * @return Releve
+     */
+    public function addDegre(\TemperatureBundle\Entity\Degre $degre)
+    {
+        $this->degres[] = $degre;
+        $degre->setReleve($this);
+        return $this;
+    }
+
+    /**
+     * Remove degre
+     *
+     * @param \TemperatureBundle\Entity\Degre $degre
+     */
+    public function removeDegre(\TemperatureBundle\Entity\Degre $degre)
+    {
+        $this->degres->removeElement($degre);
+    }
+
+    /**
+     * Get degres
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDegres()
+    {
+        return $this->degres;
+    }
+
+    public function getLesMoment(){
+        return array( 'matin', 'soir');
+    }
+
+    /**
+     * Set entreprise
+     *
+     * @param \EntrepriseBundle\Entity\Entreprise $entreprise
+     *
+     * @return Releve
+     */
+    public function setEntreprise(\EntrepriseBundle\Entity\Entreprise $entreprise)
+    {
+        $this->entreprise = $entreprise;
+
+        return $this;
+    }
+
+    /**
+     * Get entreprise
+     *
+     * @return \EntrepriseBundle\Entity\Entreprise
+     */
+    public function getEntreprise()
+    {
+        return $this->entreprise;
     }
 }

@@ -1,0 +1,48 @@
+{% block form_row %}
+{% spaceless %}
+    <div class="form_row form-group offset-md-4 col-md-4">
+        {{ form_label(form, null, {'label_attr':{'class':'col-md-12 control-label'} }) }}
+        <div class="col-md-12">
+        	{{ form_widget(form, {'attr':{'class':'form-control'} }) }}
+        	<span class="help-block">{{ form_errors(form) }}</span>
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+
+
+{% block file_row %}
+{% spaceless %}
+    <div class="form_row_file">
+        {{ form_label(form, null, {'label_attr':{'class':'lbNoFile'} }) }}
+        <div class="col-md-4">
+        	{{ form_widget(form, {'attr':{'class':'hh'} }) }}
+        	<span class="help-block">{{ form_errors(form) }}</span>
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock file_row %}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+    <ul class="contErreur">
+        {%- for error in errors -%}
+            <li> {{ error.message }}</li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+{%- block file_errors -%}
+    {%- if errors|length > 0 -%}
+    <ul class="contErreur">
+        {%- for error in errors -%}
+            <li data-toggle="tooltip" title="{{ error.message }}" ></li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+{%- endblock file_errors -%}
+
+
+
+

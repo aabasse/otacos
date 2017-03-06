@@ -1,24 +1,37 @@
-{% extends "::base.html.twig" %}
+{% extends "::layout.html.twig" %}
 
-{% block title %}AppBundle:Accueil:accueil{% endblock %}
+{% block title %}Choisissez la categorie{% endblock %}
 
-{% block body %}
-<h1 class="text-center">Choisissez la categorie</h1>
+{% block titre %}Choisissez la categorie{% endblock %}
 
+{% block contenu %}
 <div class="text-center">
 	{% for c in categories %}
-	<a href="{{url('temperature_choixEquipement', {'slug':c.slug} )}}">
+	<a href="{{url('temperature_releve_choix_moment', {'slugCategorie':c.slug} )}}">
 	<table class="categorie">
 		<tr>
+			<td class="tdTopCateg">
+			{% for n in nbr %}
+				{% if(n.categId == c.id) %}
+					{#<div class="niveau text-right">
+						<span class="bareNiveau" style="width:{{n.prcent}}%;"></span>
+						<span class="topRightm">{{n.nbr}}/{{n.qte}}</span>
+					</div>#}
+					<span class="topLeft-10">
+						{{n.nbr}}/{{n.qte}} ( {{n.prcent}}% )
+					</span>
+					<span class="contIconValid">
+						<i class="fa fa-check fa-2x iconValid" aria-hidden="true"></i>
+					</span>
+					<span class="contIconNotValid" style="width: {{28-(n.prcent * 28 / 100) }}px;">
+						<i class="fa fa-check fa-2x iconValid" aria-hidden="true"></i>
+					</span>
+				{% endif %}
+			{% endfor %}
+			</td>
+		</tr>
+		<tr>
 			<td class="contImage">
-				{#{% for n in nbr %}
-					{% if(n.categId == c.id) %}
-						<div class="niveau text-right">
-							<span class="bareNiveau" style="width:{{n.prcent}}%;"></span>
-							<span class="topRightm">{{n.nbr}}/{{n.qte}}</span>
-						</div>
-					{% endif %}
-				{% endfor %}#}
 				<img class="wwimg-thumbnail wwimg-responsive" width="auto" height="auto" src="{{asset('images/categories')}}/{{c.image}}" alt="{{c.libelle}}">
 			</td>
 		</tr>

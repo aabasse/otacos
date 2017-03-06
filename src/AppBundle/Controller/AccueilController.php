@@ -13,4 +13,10 @@ class AccueilController extends Controller
         ));
     }
 
+    /*public function getRoles($controller){
+        //$roles = $controller->getParameter('security.role_hierarchy.roles');
+        $roles = $this->container->getParameter('security.role_hierarchy.roles');
+        return $roles;
+    }*/
+
 }

@@ -1,0 +1,115 @@
+{% extends "::layout.html.twig" %}
+{% block title %}eleve creation{% endblock %}
+{% block titre %}Releve creation{% endblock %}
+
+{% block contenu %}
+    {{ form_start(form, {'attr':{'novalidate':'novalidate', class:'form-horizontal'}}) }}
+        <div class="form_row form-group offset-md-4 col-md-4">
+          {{ form_label(form.date, null, {'label_attr':{'class':'col-md-12 control-label'} }) }}
+          <div class="col-md-12">
+            <div class="input-group date">
+                {{ form_widget(form.date) }}
+                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            </div>
+            <p class="help-block">{{ form_errors(form.date) }}</p>
+          </div>
+        </div>
+
+
+        {#<div class="input-group">
+            {{ form_label(form.moment) }}
+            {{ form_widget(form.moment, {'attr':{'class':'form-control'} }) }}
+        </div>#}
+
+        <ul id="formDegre-fields-list"
+        data-prototype="{{ form_widget(form.degres.vars.prototype)|e }}">
+        {% for formDegre in form.degres %}
+            <li class="element">
+                {{ form_errors(formDegre) }}
+                {{ form_widget(formDegre) }}
+            </li>
+        {% endfor %}
+        </ul>
+        <div>
+        <a href="#" class="add-element" data-conteneur-element="formDegre-fields-list"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+        </a>
+        </div>
+        <div class="text-center">
+            {{ form_errors(form) }}
+            <button class="btn btn-primary" type="submit"><i class="fa fa-check" aria-hidden="true"></i> Valider</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+    // keep track of how many email fields have been rendered
+    var nbrElement = '{{ form.degres|length }}';
+
+    jQuery(document).ready(function() {
+        jQuery('.add-element').click(function(e) {
+            e.preventDefault();
+
+            var idConteneurElement = $(this).data('conteneur-element');
+
+            var conteneurElement = jQuery("#"+idConteneurElement);
+
+            // grab the prototype template
+            var newWidget = conteneurElement.attr('data-prototype');
+            // replace the "__name__" used in the id and name of the prototype
+            // with a number that's unique to your emails
+            // end name attribute looks like name="contact[emails][2]"
+            newWidget = newWidget.replace(/__name__/g, nbrElement+''+Math.floor((Math.random() * 10) + 1)  );
+            nbrElement++;
+
+            // create a new list element and add it to the list
+            var newLi = jQuery('<li class="element"></li>').html(newWidget);
+            newLi.appendTo(conteneurElement);
+
+            addTagFormDeleteLink(newLi);
+        });
+
+        //--------------------------- suppression
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('#formDegre-fields-list');
+
+        // add a delete link to all of the existing tag form li elements
+        $collectionHolder.find('li.element').each(function(index) {
+            if(index != 0)
+            {
+               addTagFormDeleteLink($(this)); 
+            }
+        });
+
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<a href="#" class="color-red"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>');
+            $tagFormLi.append($removeFormA);
+
+            $removeFormA.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the tag form
+                $tagFormLi.remove();
+                gestionAffichageAdd();
+            });
+            gestionAffichageAdd();
+        }
+
+        function gestionAffichageAdd(){
+            if($('.element').length >= 2)
+            {
+                $("#add-photo").hide();
+            }
+            else{
+                $("#add-photo").show();
+            }
+        }
+
+
+    })
+</script>
+
+{% endblock %}

@@ -15,7 +15,7 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('url', FileType::class, Array('data_class' => null, 'label' => 'image', 'required' => false ))
+        ->add('file', FileType::class, Array('data_class' => null, 'label' => ' ', 'required' => false ))
         ;
     }
     
@@ -25,7 +25,7 @@ class PhotoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TracabiliteBundle\Entity\Photo'
+            'data_class' => 'TracabiliteBundle\Entity\Photo',
         ));
     }
 

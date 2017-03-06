@@ -30,5 +30,7 @@ $(function(){
         language: "fr",
         todayBtn: "linked",
     })
+
+    $('[data-toggle="tooltip"]').tooltip();
 	
 });

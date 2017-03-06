@@ -1,0 +1,26 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}Utilisateur{% endblock %}
+{% block titre %}Utilisateur{% endblock %}
+{% block filAriane %}
+<ul>
+        <li>
+            <a href="{{ path('utilisateur_index') }}">List des utilisateurs</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block contenu %}
+<p>Id : <a href="{{ path('utilisateur_show', { 'id': utilisateur.id }) }}">{{ utilisateur.id }}</a></p>
+<p>Nom : {{utilisateur.username|capitalize}}</p>
+<p>Email : {{utilisateur.email}}</p>
+<p>Entreprise : {{utilisateur.entreprise}}</p>
+<p>Roles : {% for r in  utilisateur.roles %}
+                        {% if loop.index > 1 %}, {% endif %}{{r}}
+                    {% endfor %} </p>
+<div>
+	<a class="btn btn-outline-secondary" href="{{ path('utilisateur_edit', { 'id': utilisateur.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+    {{ form_start(delete_form, {'attr':{'class' : 'd-inline-block' } }) }}
+        <div class=""><button class="btn btn-outline-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>
+    {{ form_end(delete_form) }}
+</div>
+{% endblock %}
