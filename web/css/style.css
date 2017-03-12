@@ -222,3 +222,7 @@ header.container-fluid {
 	max-width: 100%;
 	max-height: 50px;
 }
+
+.contTbHistorique{
+	overflow-x: auto;
+}

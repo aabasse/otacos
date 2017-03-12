@@ -1,0 +1,54 @@
+
+<div class="row">
+	<div id="accordion-{{num}}" role="tablist" aria-multiselectable="true" class="col-12">
+	{% for key, receptions in receptionsByJour %}
+		<div class="card mt-1">
+	    <div class="card-header p-0" role="tab" id="heading{{ loop.index }}-{{num}}">
+	      <h5 class="mb-0 titreAccordion" data-toggle="collapse" data-parent="#accordion-{{num}}" href="#collapse{{ loop.index }}-{{num}}" aria-controls="collapse{{ loop.index }}-{{num}}">
+	        <a>
+	          {{ key|capitalize }}
+	        </a>
+	      </h5>
+	    </div>
+
+	    <div id="collapse{{ loop.index }}-{{num}}" class="collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}-{{num}}">
+	      <div class="card-block contTbHistorique">
+	        <table class="table table-striped table-bordered">
+				<thead class="">
+					<tr class="">
+						<th>Categorie</th>
+						<th class="" >Date</th>
+						<th class="" >Degre</th>
+						<th class="" >Bon livraison</th>
+						<th class="" >Remarque</th>
+						<th class="" ></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for r in receptions %}
+					<tr class="">
+						<td>{{r.categorie.libelle|capitalize}}</td>
+						<td class="">{{r.date|date('d/m/Y')}}</td>
+						<td class="">{{r.degre}}</td>
+						<td class="">{{r.bonLivraison}}</td>
+						<td class="">{{r.remarque}}</td>
+						<td class="tdImg  text-center">
+							{% for p in r.photos %}
+								<img src="{{ asset('uploads/images/reception/min_'~p.url)}}">
+							{% endfor %}
+						</td>
+						<td>
+							<a class="btn btn-outline-secondary" href="{{ path('reception_edit', { 'id': r.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>	
+							{{ render(controller('ReceptionBundle:Reception:deleteButton', {'id':r.id})) }}
+						</td>
+					</tr>
+					{% endfor  %}
+				</tbody>
+			</table>
+	      </div>
+	    </div>
+	  </div>
+	{%  endfor %}
+	</div>
+</div>

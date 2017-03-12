@@ -9,3 +9,6 @@ temperature_releve_choix_moment:
 temperature_releve_new:
     path:     nouveau/{slugCategorie}/{moment}
     defaults: { _controller: TemperatureBundle:Releve:new }
+
+tracabilite_trace:
+    resource: "@TemperatureBundle/Resources/config/routing/releve.yml"

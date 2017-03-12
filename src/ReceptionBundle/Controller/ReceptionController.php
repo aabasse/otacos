@@ -109,7 +109,6 @@ class ReceptionController extends Controller
      */
     public function editAction(Request $request, Reception $reception)
     {
-        $deleteForm = $this->createDeleteForm($reception);
         $editForm = $this->createForm('ReceptionBundle\Form\ReceptionEditType', $reception);
         $editForm->handleRequest($request);
 
@@ -122,7 +121,6 @@ class ReceptionController extends Controller
         return $this->render('ReceptionBundle:reception:edit.html.twig', array(
             'reception' => $reception,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -135,7 +133,7 @@ class ReceptionController extends Controller
         $form = $this->createDeleteForm($reception);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        /*if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $lesPhotoAsupprimer = array();
@@ -150,9 +148,17 @@ class ReceptionController extends Controller
             foreach ($lesPhotoAsupprimer as $p) {
                 $gestionImage->supprimer($p, 'reception');
             }
-        }
+        }*/
 
-        return $this->redirectToRoute('reception_index');
+        return $this->redirectToRoute('historique_reception');
+    }
+
+    public function deleteButtonAction(Reception $reception){
+        $form = $this->createDeleteForm($reception);
+        return $this->render('ReceptionBundle:reception:deleteButton.html.twig', array(
+            'form' => $form->createView(),
+            'id'=>$reception->getId(),
+        ));
     }
 
     /**

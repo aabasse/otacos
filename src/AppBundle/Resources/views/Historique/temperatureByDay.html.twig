@@ -1,0 +1,51 @@
+<div class="row">
+	<div id="accordion-{{num}}" role="tablist" aria-multiselectable="true" class="col-12">
+	{% for key, temperatures in temperaturesByDay %}
+		<div class="card mt-1">
+	    <div class="card-header p-0" role="tab" id="heading{{ loop.index }}-{{num}}">
+	      <h5 class="mb-0 titreAccordion" data-toggle="collapse" data-parent="#accordion-{{num}}" href="#collapse{{ loop.index }}-{{num}}" aria-controls="collapse{{ loop.index }}-{{num}}">
+	        <a>
+	          {{ key|capitalize }}
+	        </a>
+	      </h5>
+	    </div>
+
+	    <div id="collapse{{ loop.index }}-{{num}}" class="collapse" role="tabpanel" aria-labelledby="heading{{ loop.index }}-{{num}}">
+	      <div class="card-block contTbHistorique">
+	        <table class="table table-striped table-bordered">
+				<thead class="">
+					<tr class="">
+						<th>Categorie</th>
+						<th>Date</th>
+						<th>Moment</th>
+						<th>Temperature</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for t in temperatures %}
+					<tr class="">
+						<td>{{t.categorie.libelle|capitalize}}</td>
+						<td class="">{{t.date|date('d/m/Y')}}</td>
+						<td class="">{{t.moment|capitalize}}</td>
+						<td class="tdImg  text-center">
+							<ul>
+							{% for d in t.degres %}
+								<li>{{ d.equipement|capitalize }} : {{ d.valeur }} °</li>
+							{% endfor %}
+							</ul>
+						</td>
+						<td>
+							<a class="btn btn-outline-secondary" href="{{ path('releve_edit', { 'id': t.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>	
+							{{ render(controller('TemperatureBundle:Releve:deleteButton', {'id':t.id})) }}
+						</td>
+					</tr>
+					{% endfor  %}
+				</tbody>
+			</table>
+	      </div>
+	    </div>
+	  </div>
+	{%  endfor %}
+	</div>
+</div>

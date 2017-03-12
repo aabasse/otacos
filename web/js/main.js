@@ -32,5 +32,18 @@ $(function(){
     })
 
     $('[data-toggle="tooltip"]').tooltip();
-	
+
+    
+
 });
+
+function confirmerSuppression(me){
+    var id = $(me).closest('form').attr('id');
+    $('#confirmDeleteModal .btOui').data('id-form', id);
+    return false;
+}
+
+function validerSuppression(me){
+    var idForm = $(me).data('id-form');
+    $('#'+idForm).submit();
+}

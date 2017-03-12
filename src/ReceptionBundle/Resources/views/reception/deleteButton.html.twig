@@ -1,0 +1,5 @@
+
+{{ form_start(form, {'attr':{'class' : 'd-inline-block', 'id':'formDeleteReception-'~id} }) }}
+{{ form_widget(form) }}
+<button class="btn btn-outline-danger" onclick="confirmerSuppression(this)" data-toggle="modal" data-target="#confirmDeleteModal" type="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+{{ form_end(form) }}

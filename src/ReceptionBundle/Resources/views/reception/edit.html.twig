@@ -1,11 +1,10 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <h1>Reception edit</h1>
-
+{% extends "::layout.html.twig" %}
+{% block title %}Modifier une reception{% endblock %}
+{% block titre %}Modifier une reception{% endblock %}
+{% block contenu %}
     {{ form_start(edit_form, {'attr':{class:'form-horizontal'}}) }}
         {{ form_widget(edit_form) }}
-        <div class="text-center"><button type="submit">Modifier</button></div>
+        <div class="text-center"><button class="btn btn-outline-primary" type="submit">Modifier</button></div>
     {{ form_end(edit_form) }}
 
     {#

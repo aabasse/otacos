@@ -99,7 +99,7 @@ class TraceController extends Controller
     public function editAction(Request $request, Trace $trace)
     {
         $deleteForm = $this->createDeleteForm($trace);
-        $editForm = $this->createForm('TracabiliteBundle\Form\TraceType', $trace);
+        $editForm = $this->createForm('TracabiliteBundle\Form\TraceEditType', $trace);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -124,7 +124,7 @@ class TraceController extends Controller
         $form = $this->createDeleteForm($trace);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        /*if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $lesPhotoAsupprimer = array();
@@ -139,9 +139,17 @@ class TraceController extends Controller
             foreach ($lesPhotoAsupprimer as $p) {
                 $gestionImage->supprimer($p, 'trace');
             }
-        }
+        }*/
 
-        return $this->redirectToRoute('trace_index');
+        return $this->redirectToRoute('historique_tracabilite');
+    }
+
+    public function deleteButtonAction(Trace $trace){
+        $form = $this->createDeleteForm($trace);
+        return $this->render('TracabiliteBundle:trace:deleteButton.html.twig', array(
+            'form' => $form->createView(),
+            'id'=>$trace->getId(),
+        ));
     }
 
     /**

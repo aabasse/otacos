@@ -14,8 +14,8 @@ class ReceptionRepository extends \Doctrine\ORM\EntityRepository
 		$res = $this->createQueryBuilder('r')
 			->join('r.categorie', 'c')
 			->select('c.id')
-			->andWhere('r.date = :date')
-			->setParameter('date', date("Y-m-d") )
+			->andWhere('r.date = :date')->setParameter('date', date("Y-m-d") )
+			->andWhere('r.entreprise = :entreprise')->setParameter('entreprise', $entreprise )
             ->getQuery()->getScalarResult();
 
         return $res;
