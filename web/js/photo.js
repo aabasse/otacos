@@ -115,13 +115,4 @@ $(function(){
         $('img', label).remove();
         label.addClass('lbNoFile');
     }
-
-
-
-
-
-
-
-
-
 })
