@@ -51,6 +51,7 @@ class Releve
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * @Assert\NotBlank()
      * @Assert\Date()
      */
     private $date;

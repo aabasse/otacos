@@ -30,11 +30,14 @@ class TemperatureController extends Controller
 
         $momentValideDuJour  = $em->getRepository("TemperatureBundle:Releve")->getMomentValidDuJour($categ, $this->getUser()->getEntreprise());
         //dump($momentValideDuJour);die();
+        
+        $iconsMoment['matin']= 'fa-sun-o';$iconsMoment['soir']= 'fa-moon-o';
 
         return $this->render('TemperatureBundle:Temperature:choixMoment.html.twig', array(
             'slugCategorie' => $slugCategorie,
             'moments'=> Releve::getLesMoment(),
             'momentValideDuJour' => $momentValideDuJour,
+            'iconsMoment' => $iconsMoment,
         ));
     }
 }

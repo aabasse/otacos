@@ -226,3 +226,13 @@ header.container-fluid {
 .contTbHistorique{
 	overflow-x: auto;
 }
+
+#formDegre-fields-list li{
+	list-style: none;
+}
+
+.btDeleteDegres {
+    position: absolute;
+    right: 15px;
+    top: 0px;
+}

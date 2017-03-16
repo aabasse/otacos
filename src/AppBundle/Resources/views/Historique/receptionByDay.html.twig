@@ -34,9 +34,13 @@
 						<td class="">{{r.bonLivraison}}</td>
 						<td class="">{{r.remarque}}</td>
 						<td class="tdImg  text-center">
+							<div class="zoom-gallery">
 							{% for p in r.photos %}
-								<img src="{{ asset('uploads/images/reception/min_'~p.url)}}">
+								<a href="{{ asset('uploads/images/reception/'~p.url)}}" data-source="{{ asset('uploads/images/reception/'~p.url)}}">
+									<img src="{{ asset('uploads/images/reception/min_'~p.url)}}">
+								</a>
 							{% endfor %}
+							</div>
 						</td>
 						<td>
 							<a class="btn btn-outline-secondary" href="{{ path('reception_edit', { 'id': r.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>	

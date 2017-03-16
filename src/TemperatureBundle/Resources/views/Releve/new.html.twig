@@ -21,7 +21,13 @@
             {{ form_widget(form.moment, {'attr':{'class':'form-control'} }) }}
         </div>#}
 
-        <ul id="formDegre-fields-list"
+        <div class="text-center">
+            <a href="#" class="add-element" data-conteneur-element="formDegre-fields-list"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter un equipement
+        </a>
+        </div>
+        
+
+        <ul id="formDegre-fields-list" class="p-0" 
         data-prototype="{{ form_widget(form.degres.vars.prototype)|e }}">
         {% for formDegre in form.degres %}
             <li class="element">
@@ -31,8 +37,7 @@
         {% endfor %}
         </ul>
         <div>
-        <a href="#" class="add-element" data-conteneur-element="formDegre-fields-list"><i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
-        </a>
+        
         </div>
         <div class="text-center">
             {{ form_errors(form) }}
@@ -84,8 +89,8 @@
 
 
         function addTagFormDeleteLink($tagFormLi) {
-            var $removeFormA = $('<a href="#" class="color-red"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>');
-            $tagFormLi.append($removeFormA);
+            var $removeFormA = $('<a href="#" class="color-red btDeleteDegres"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></a>');
+            $('label[for$="valeur"]', $tagFormLi).append($removeFormA);
 
             $removeFormA.on('click', function(e) {
                 // prevent the link from creating a "#" on the URL

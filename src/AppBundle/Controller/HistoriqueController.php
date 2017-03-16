@@ -77,9 +77,9 @@ class HistoriqueController extends Controller
     }
 
     private function getTypes(){
-        $types[] = array('libelle' => 'traçabilité', 'slug' => 'tracabilite');
-        $types[] = array('libelle' => 'temperature', 'slug' => 'temperature');
-        $types[] = array('libelle' => 'reception', 'slug' => 'reception');
+        $types[] = array('libelle' => 'traçabilité', 'slug' => 'tracabilite', 'icon'=>'fa-barcode');
+        $types[] = array('libelle' => 'temperature', 'slug' => 'temperature', 'icon'=>'fa-thermometer-empty' );
+        $types[] = array('libelle' => 'reception', 'slug' => 'reception', 'icon'=>'fa-truck');
 
         return $types;
         

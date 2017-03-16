@@ -29,9 +29,13 @@
 						<td>{{t.date|date('d/m/Y')}}</td>
 						<td>{{ t.remarque }}</td>
 						<td class="tdImg  text-center">
+						<div class="zoom-gallery">
 							{% for p in t.photos %}
-								<img src="{{ asset('uploads/images/trace/min_'~p.url)}}">
+								<a href="{{ asset('uploads/images/trace/'~p.url)}}" data-source="{{ asset('uploads/images/trace/'~p.url)}}">
+									<img src="{{ asset('uploads/images/trace/min_'~p.url)}}">
+								</a>
 							{% endfor %}
+						</div>
 						</td>
 						<td>
 							<a class="btn btn-outline-secondary" href="{{ path('trace_edit', { 'id': t.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>	

@@ -24,3 +24,12 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/magnific-popup/magnific-popup.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('plugins/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/galerie.js')}}"></script>
+{% endblock %}
