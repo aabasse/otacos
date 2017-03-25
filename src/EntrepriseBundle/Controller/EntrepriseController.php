@@ -71,7 +71,7 @@ class EntrepriseController extends Controller
      */
     public function editAction(Request $request, Entreprise $entreprise)
     {
-        $deleteForm = $this->createDeleteForm($entreprise);
+        //$deleteForm = $this->createDeleteForm($entreprise);
         $editForm = $this->createForm('EntrepriseBundle\Form\EntrepriseType', $entreprise);
         $editForm->handleRequest($request);
 
@@ -84,7 +84,7 @@ class EntrepriseController extends Controller
         return $this->render('EntrepriseBundle:Entreprise:edit.html.twig', array(
             'entreprise' => $entreprise,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            //'delete_form' => $deleteForm->createView(),
         ));
     }
 

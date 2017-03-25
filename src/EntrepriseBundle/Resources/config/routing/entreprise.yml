@@ -4,21 +4,27 @@ entreprise_index:
     methods:  GET
 
 entreprise_show:
-    path:     /{id}/show
+    path:     /{id}/voir
     defaults: { _controller: "EntrepriseBundle:Entreprise:show" }
     methods:  GET
+    requirements:
+        id: '\d+'
 
 entreprise_new:
-    path:     /new
+    path:     /ajouter
     defaults: { _controller: "EntrepriseBundle:Entreprise:new" }
     methods:  [GET, POST]
 
 entreprise_edit:
-    path:     /{id}/edit
+    path:     /{id}/modifier
     defaults: { _controller: "EntrepriseBundle:Entreprise:edit" }
     methods:  [GET, POST]
+    requirements:
+        id: '\d+'
 
 entreprise_delete:
-    path:     /{id}/delete
+    path:     /{id}/supprimer
     defaults: { _controller: "EntrepriseBundle:Entreprise:delete" }
     methods:  DELETE
+    requirements:
+        id: '\d+'

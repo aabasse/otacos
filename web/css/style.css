@@ -189,6 +189,7 @@ div#dropdownUser {
 }
 #theContenu{
 	margin-top: 50px;
+	right: 0px;
 }
 header.container-fluid {
     background: #9b59b6;
@@ -235,4 +236,96 @@ header.container-fluid {
     position: absolute;
     right: 15px;
     top: 0px;
+}
+.color-white{color: white;}
+
+
+
+.afficherMenu, .cacherMenu, .cacherContenu, .afficherContenu{
+	transition: 0.5s all;
+	animation-timing-function: cubic-bezier(0, 0.75, 0.26, 1.04);
+}
+
+
+#contBtMenu{
+	display: none;
+	width: 44px;
+	height: 31px;
+	overflow: hidden;
+}
+
+#contBtMenu > div{
+	width: 100px;
+}
+
+.btNav {
+	display: inline-block;
+	width: 42px;
+	height: 31px;
+	line-height: 31px;
+	margin: 0px;
+	padding: 0px;
+	color: #e0e0e0;
+	border: 1px solid;
+	text-align: center;
+	vertical-align: top;
+	cursor: pointer;
+}
+#contBtMenu > div > .btNav{
+	border: 0px;
+}
+#contBtMenu{
+	border: 1px solid #e0e0e0;
+}
+#btEntLg{
+	width: auto !important;
+    padding: 0px 3px 0px 3px;
+}
+
+.bt-1 > div{
+	margin-left: 0px !important;
+}
+.bt-2 > div{
+	margin-left: -46px !important;	
+}
+.bt-1 > div, .bt-2 > div{
+transition: 0.4s all;
+animation-timing-function: cubic-bezier(0, 0.75, 0.26, 1.04);
+}
+
+
+/* ----------------- media --------------------- */
+@media screen and (max-width: 990px) {
+	#contBtMenu{
+	display: inline-block;
+	}
+    #menuLeft {
+        left: -100%;
+    }
+    #theContenu{
+    }
+
+    .afficherMenu{
+		left:0px !important;
+	}
+	.cacherMenu{
+		left:-100% !important;
+	}
+
+	.cacherContenu{
+		right: -100% !important;
+	}
+
+	.afficherContenu{
+		right: 0px !important;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.h2, h2 {
+	    font-size: 1rem;
+	}
+	.display-4 {
+	    font-size: 2rem;
+	}
 }

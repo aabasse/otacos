@@ -1,21 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends "::layout.html.twig" %}
 
-{% block body %}
-    <h1>Entreprise edit</h1>
-
+{% block title %}Ajouter une entreprise{% endblock %}
+{% block titre %}Ajouter une entreprise{% endblock %}
+{% block filAriane %}
+<ul>
+    <li>
+        <a href="{{ path('entreprise_index') }}">List des entreprise</a>
+    </li>
+</ul>
+{% endblock %}
+{% block contenu %}
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <div class="text-center"><button class="btn btn-outline-primary" type="submit">Modifier</button></div>
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('entreprise_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

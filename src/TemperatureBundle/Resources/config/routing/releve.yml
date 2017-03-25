@@ -2,6 +2,8 @@ releve_show:
     path:     /{id}/show
     defaults: { _controller: "TemperatureBundle:Releve:show" }
     methods:  GET
+    requirements:
+        id: '\d+'
 
 releve_new:
     path:     /new
@@ -12,8 +14,12 @@ releve_edit:
     path:     /{id}/edit
     defaults: { _controller: "TemperatureBundle:Releve:edit" }
     methods:  [GET, POST]
+    requirements:
+        id: '\d+'
 
 releve_delete:
     path:     /{id}/delete
     defaults: { _controller: "TemperatureBundle:Releve:delete" }
     methods:  DELETE
+    requirements:
+        id: '\d+'

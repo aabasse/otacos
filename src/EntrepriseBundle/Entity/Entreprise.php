@@ -35,7 +35,18 @@ class Entreprise
      */
     private $logo;
 
+    /**
+   * @ORM\OneToMany(targetEntity="UtilisateurBundle\Entity\Utilisateur", mappedBy="entreprise")
+   * @ORM\JoinColumn(nullable=true)
+   */
+    private $utilisateurs;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="est_abonne", type="boolean")
+     */
+    private $estAbonne = false;
 
     /**
      * Get id
@@ -98,5 +109,70 @@ class Entreprise
     public function __toString()
     {
         return ucfirst($this->nom);
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->utilisateurs = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add utilisateur
+     *
+     * @param \UtilisateurBundle\Entity\Utilisateur $utilisateur
+     *
+     * @return Entreprise
+     */
+    public function addUtilisateur(\UtilisateurBundle\Entity\Utilisateur $utilisateur)
+    {
+        $this->utilisateurs[] = $utilisateur;
+
+        return $this;
+    }
+
+    /**
+     * Remove utilisateur
+     *
+     * @param \UtilisateurBundle\Entity\Utilisateur $utilisateur
+     */
+    public function removeUtilisateur(\UtilisateurBundle\Entity\Utilisateur $utilisateur)
+    {
+        $this->utilisateurs->removeElement($utilisateur);
+    }
+
+    /**
+     * Get utilisateurs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUtilisateurs()
+    {
+        return $this->utilisateurs;
+    }
+
+    /**
+     * Set estAbonne
+     *
+     * @param boolean $estAbonne
+     *
+     * @return Entreprise
+     */
+    public function setEstAbonne($estAbonne)
+    {
+        $this->estAbonne = $estAbonne;
+
+        return $this;
+    }
+
+    /**
+     * Get estAbonne
+     *
+     * @return boolean
+     */
+    public function getEstAbonne()
+    {
+        return $this->estAbonne;
     }
 }

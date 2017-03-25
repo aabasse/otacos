@@ -3,22 +3,33 @@ utilisateur_index:
     defaults: { _controller: "UtilisateurBundle:Utilisateur:index" }
     methods:  GET
 
-utilisateur_show:
-    path:     /{id}/show
-    defaults: { _controller: "UtilisateurBundle:Utilisateur:show" }
+utilisateur_salaries:
+    path:     /salaries
+    defaults: { _controller: "UtilisateurBundle:Utilisateur:salaries" }
     methods:  GET
 
+utilisateur_show:
+    path:     /{id}/voir
+    defaults: { _controller: "UtilisateurBundle:Utilisateur:show" }
+    methods:  GET
+    requirements:
+        id: '\d+'
+
 utilisateur_new:
-    path:     /new
+    path:     /ajouter
     defaults: { _controller: "UtilisateurBundle:Utilisateur:new" }
     methods:  [GET, POST]
 
 utilisateur_edit:
-    path:     /{id}/edit
+    path:     /{id}/modifier
     defaults: { _controller: "UtilisateurBundle:Utilisateur:edit" }
     methods:  [GET, POST]
+    requirements:
+        id: '\d+'
 
 utilisateur_delete:
-    path:     /{id}/delete
+    path:     /{id}/supprimer
     defaults: { _controller: "UtilisateurBundle:Utilisateur:delete" }
     methods:  DELETE
+    requirements:
+        id: '\d+'

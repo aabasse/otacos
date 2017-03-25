@@ -5,6 +5,7 @@ namespace UtilisateurBundle\Controller;
 use UtilisateurBundle\Entity\Utilisateur;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Utilisateur controller.
@@ -27,6 +28,18 @@ class UtilisateurController extends Controller
         ));
     }
 
+    public function salariesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entreprise = $this->getUser()->getEntreprise();
+        $utilisateurs = $em->getRepository('UtilisateurBundle:Utilisateur')->findByEntreprise($entreprise);
+
+        return $this->render('UtilisateurBundle:Utilisateur:salaries.html.twig', array(
+            'utilisateurs' => $utilisateurs,
+        ));
+    }
+
+
     /**
      * Creates a new utilisateur entity.
      *
@@ -34,11 +47,19 @@ class UtilisateurController extends Controller
     public function newAction(Request $request)
     {
         $utilisateur = new Utilisateur();
+
+        if ($this->isGranted('ROLE_CHEF_ENTREPRISE')) {
+            $entreprise = $this->getUser()->getEntreprise();
+            $utilisateur->setEntreprise($entreprise);
+        }
         $form = $this->createForm('UtilisateurBundle\Form\UtilisateurType', $utilisateur);
+
+       
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $utilisateur->setEnabled(true); // on active l'utilisateur
             $em->persist($utilisateur);
             $em->flush($utilisateur);
 
@@ -51,14 +72,22 @@ class UtilisateurController extends Controller
         ));
     }
 
+    private function verifierDroit($utilisateur){
+        if ($this->isGranted('ROLE_CHEF_ENTREPRISE')) {
+            if($utilisateur->getEntreprise() != $this->getUser()->getEntreprise() ){
+                throw new HttpException(403);
+            }
+        }
+    }
+
     /**
      * Finds and displays a utilisateur entity.
      *
      */
     public function showAction(Utilisateur $utilisateur)
     {
+        $this->verifierDroit($utilisateur);
         $deleteForm = $this->createDeleteForm($utilisateur);
-
         return $this->render('UtilisateurBundle:Utilisateur:show.html.twig', array(
             'utilisateur' => $utilisateur,
             'delete_form' => $deleteForm->createView(),
@@ -71,13 +100,17 @@ class UtilisateurController extends Controller
      */
     public function editAction(Request $request, Utilisateur $utilisateur)
     {
+        $this->verifierDroit($utilisateur);
+        
         $roles = $this->get('otacos_app.service')->getRoles($this);
         $editForm = $this->createForm('UtilisateurBundle\Form\UtilisateurEditType', $utilisateur);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             //dump($utilisateur);die();
-            $utilisateur->setRoles($utilisateur->getLesRoles());
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $utilisateur->setRoles($utilisateur->getLesRoles());
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('utilisateur_edit', array('id' => $utilisateur->getId()));

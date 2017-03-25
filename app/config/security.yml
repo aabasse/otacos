@@ -5,8 +5,8 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ABONNE:    ROLE_USER
-        ROLE_ADMIN:       ROLE_ABONNE
+        ROLE_CHEF_ENTREPRISE:    ROLE_USER
+        ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
@@ -39,4 +39,13 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/entreprise/(.)+/voir, roles: [ROLE_CHEF_ENTREPRISE, ROLE_ADMIN] }
+        - { path: ^/entreprise/(.)+/modifier, roles: [ROLE_CHEF_ENTREPRISE, ROLE_ADMIN] }
+        - { path: ^/entreprise, roles: ROLE_ADMIN }
+        - { path: ^/utilisateur/(.)+/voir, roles: [ROLE_CHEF_ENTREPRISE, ROLE_ADMIN] }
+        - { path: ^/utilisateur/(.)+/modifier, roles: [ROLE_CHEF_ENTREPRISE, ROLE_ADMIN] }
+        - { path: ^/utilisateur/ajouter, roles: [ROLE_CHEF_ENTREPRISE, ROLE_ADMIN] }
+        - { path: ^/utilisateur/salaries, roles: [ROLE_CHEF_ENTREPRISE] }
+        - { path: ^/utilisateur, roles: ROLE_ADMIN }
+        - { path: ^/historique, roles: [ROLE_CHEF_ENTREPRISE, ROLE_USER] }
         - { path: ^/, roles: ROLE_USER }

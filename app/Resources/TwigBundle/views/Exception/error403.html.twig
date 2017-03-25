@@ -1,0 +1,9 @@
+{% extends "::layout.html.twig" %}
+{% block titre %}Trace creation{% endblock %}
+{% block contenu %}
+    {% if(exception.message == 'non abonne') %}
+		<p>Vous ne pouvez pas acceder a cette page car vous n'etes pas abonnées :( </p>
+	{% else %}
+		<p>Acces interdi.</p>
+	{% endif %}
+{% endblock %}

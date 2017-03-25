@@ -8,13 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use AppBundle\Services\AppService;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class UtilisateurEditType extends AbstractType
 {
     private $appService;
+    private $authorizationchecker;
 
-    public function __construct(AppService $appService)
+    public function __construct(AuthorizationChecker $authorizationchecker, AppService $appService)
     {
+        $this->authorizationchecker = $authorizationchecker;
         $this->appService = $appService;
     }
     /**
@@ -25,14 +28,15 @@ class UtilisateurEditType extends AbstractType
         $utilisateur = $builder->getData();
         $dataRoles = $utilisateur->getRoles();
 
-        $builder->add('entreprise')
-        //->add('roles', CollectionType::Class)
-        ->add('lesRoles', ChoiceType::Class, array(
-            'choices'=>$this->appService->getRoles(),
-            'multiple'=>true,
-            'data' => $dataRoles,
-        ))
-        ->remove('plainPassword');
+        if ($this->authorizationchecker->isGranted('ROLE_ADMIN')) {
+            $builder->add('entreprise')
+            ->add('lesRoles', ChoiceType::Class, array(
+                'choices'=>$this->appService->getRoles(),
+                'multiple'=>true,
+                'data' => $dataRoles,
+            ));
+        }
+        $builder->remove('plainPassword');
     }
 
     public function getParent()

@@ -10,13 +10,33 @@
 </ul>
 {% endblock %}
 {% block contenu %}
-<p>Id : {{ entreprise.id }}</p>
-<p>Nom : {{ entreprise.nom }}</p>
-<p>Logo : {{ entreprise.logo }}</p>
-<div>
-    <a class="btn btn-outline-secondary" href="{{ path('entreprise_edit', { 'id': entreprise.id }) }}">Edit</a>
-    {{ form_start(delete_form, {'attr':{'class' : 'd-inline-block' } }) }}
-        <div class=""><button class="btn btn-outline-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>
-    {{ form_end(delete_form) }}
+<div class="row">
+	<div class="col-6">
+		<h2>Informations</h2>
+		<p>Id : {{ entreprise.id }}</p>
+		<p>Nom : {{ entreprise.nom }}</p>
+		<p>Logo : {{ entreprise.logo }}</p>
+		<div>
+		    <a class="btn btn-outline-secondary" href="{{ path('entreprise_edit', { 'id': entreprise.id }) }}">Edit</a>
+		    {% if is_granted('ROLE_ADMIN') %}
+
+		    	{% if entreprise.utilisateurs|length == 0 %}
+				    {{ form_start(delete_form, {'attr':{'class' : 'd-inline-block', 'id':'formDeleteEntreprise-'~entreprise.id } }) }}
+				        <div class=""><button onclick="confirmerSuppression(this)" data-toggle="modal" data-target="#confirmDeleteModal" class="btn btn-outline-danger" type="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>
+				    {{ form_end(delete_form) }}
+				{% else %}
+					<button class="btn btn-outline-danger" disabled type="button"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+	<div class="col-6">
+		<h2>Salariées</h2>
+		<ul>
+		{% for u in entreprise.utilisateurs %}
+			<li> <a href="{{ url('utilisateur_show', {'id':u.id}) }}"> {{ u|capitalize }}</a></li>
+		{% endfor %}
+		</ul>
+	</div>
 </div>
 {% endblock %}

@@ -19,6 +19,7 @@ class ReceptionController extends Controller
      */
     public function indexAction()
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $em = $this->getDoctrine()->getManager();
 
         $em = $this->getDoctrine();
@@ -41,6 +42,7 @@ class ReceptionController extends Controller
      */
     public function newAction(Request $request, $slugCategorie)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $em = $this->getDoctrine()->getManager();
         $categ  = $em->getRepository("TracabiliteBundle:Categorie")->findOneBySlug($slugCategorie);
         if (!$categ) {
@@ -95,6 +97,7 @@ class ReceptionController extends Controller
      */
     public function showAction(Reception $reception)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $deleteForm = $this->createDeleteForm($reception);
 
         return $this->render('ReceptionBundle:reception:show.html.twig', array(
@@ -109,6 +112,7 @@ class ReceptionController extends Controller
      */
     public function editAction(Request $request, Reception $reception)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $editForm = $this->createForm('ReceptionBundle\Form\ReceptionEditType', $reception);
         $editForm->handleRequest($request);
 
@@ -130,10 +134,11 @@ class ReceptionController extends Controller
      */
     public function deleteAction(Request $request, Reception $reception)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $form = $this->createDeleteForm($reception);
         $form->handleRequest($request);
 
-        /*if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $lesPhotoAsupprimer = array();
@@ -148,7 +153,7 @@ class ReceptionController extends Controller
             foreach ($lesPhotoAsupprimer as $p) {
                 $gestionImage->supprimer($p, 'reception');
             }
-        }*/
+        }
 
         return $this->redirectToRoute('historique_reception');
     }

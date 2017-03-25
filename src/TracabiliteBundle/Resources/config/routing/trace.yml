@@ -2,6 +2,8 @@ trace_show:
     path:     /{id}/show
     defaults: { _controller: "TracabiliteBundle:Trace:show" }
     methods:  GET
+    requirements:
+        id: '\d+'
 
 tracabilite_new:
     path:     nouveau/{slugCategorie}/{slugElement}
@@ -12,8 +14,12 @@ trace_edit:
     path:     /{id}/edit
     defaults: { _controller: "TracabiliteBundle:Trace:edit" }
     methods:  [GET, POST]
+    requirements:
+        id: '\d+'
 
 trace_delete:
     path:     /{id}/delete
     defaults: { _controller: "TracabiliteBundle:Trace:delete" }
     methods:  DELETE
+    requirements:
+        id: '\d+'

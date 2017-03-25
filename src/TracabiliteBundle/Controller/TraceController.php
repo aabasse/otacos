@@ -21,6 +21,7 @@ class TraceController extends Controller
      */
     public function indexAction()
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $em = $this->getDoctrine()->getManager();
         $traces = $em->getRepository('TracabiliteBundle:Trace')->findAll();
 
@@ -35,6 +36,7 @@ class TraceController extends Controller
      */
     public function newAction(Request $request, $slugCategorie, $slugElement)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $em = $this->getDoctrine()->getManager();
         $element  = $em->getRepository("TracabiliteBundle:Element")->findOneBySlug($slugElement);
         if (!$element) {
@@ -84,6 +86,7 @@ class TraceController extends Controller
      */
     public function showAction(Trace $trace)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $deleteForm = $this->createDeleteForm($trace);
 
         return $this->render('TracabiliteBundle:trace:show.html.twig', array(
@@ -98,6 +101,7 @@ class TraceController extends Controller
      */
     public function editAction(Request $request, Trace $trace)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $deleteForm = $this->createDeleteForm($trace);
         $editForm = $this->createForm('TracabiliteBundle\Form\TraceEditType', $trace);
         $editForm->handleRequest($request);
@@ -121,10 +125,11 @@ class TraceController extends Controller
      */
     public function deleteAction(Request $request, Trace $trace)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $form = $this->createDeleteForm($trace);
         $form->handleRequest($request);
 
-        /*if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $lesPhotoAsupprimer = array();
@@ -139,7 +144,7 @@ class TraceController extends Controller
             foreach ($lesPhotoAsupprimer as $p) {
                 $gestionImage->supprimer($p, 'trace');
             }
-        }*/
+        }
 
         return $this->redirectToRoute('historique_tracabilite');
     }

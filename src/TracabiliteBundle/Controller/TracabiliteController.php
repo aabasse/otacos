@@ -8,6 +8,8 @@ class TracabiliteController extends Controller
 {
     public function indexAction()
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
+
     	$em = $this->getDoctrine();
         $categories  = $em->getRepository("TracabiliteBundle:Categorie")->getCategoriePere(100);
 
@@ -23,6 +25,7 @@ class TracabiliteController extends Controller
 
     public function choixElementAction($slug)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
     	$em = $this->getDoctrine();
     	$categ  = $em->getRepository("TracabiliteBundle:Categorie")->findOneBySlug($slug);
     	if (!$categ) {
@@ -42,6 +45,7 @@ class TracabiliteController extends Controller
 
     public function newAction($slugCategorie, $slugElement)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
     	$em = $this->getDoctrine();
     	$element  = $em->getRepository("TracabiliteBundle:Element")->findOneBySlug($slugElement);
     	if (!$element) {

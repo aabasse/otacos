@@ -23,7 +23,7 @@ class Utilisateur extends BaseUser
     protected $id;
 
     /**
-   * @ORM\ManyToOne(targetEntity="EntrepriseBundle\Entity\Entreprise")
+   * @ORM\ManyToOne(targetEntity="EntrepriseBundle\Entity\Entreprise", inversedBy="utilisateurs")
    * @ORM\JoinColumn(nullable=true)
    */
     private $entreprise;

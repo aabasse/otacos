@@ -13,7 +13,7 @@ class EntrepriseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nom')->add('logo')        ;
+        $builder->add('nom')->add('logo')->add('estAbonne', null, array('label'=>'Est abonné') );
     }
     
     /**

@@ -5,15 +5,25 @@ namespace UtilisateurBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class UtilisateurType extends AbstractType
 {
+    private $authorizationchecker;
+
+    public function __construct(AuthorizationChecker $authorizationchecker)
+    {
+        $this->authorizationchecker = $authorizationchecker;
+    }
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('entreprise');
+
+        if ($this->authorizationchecker->isGranted('ROLE_ADMIN')) {
+            $builder->add('entreprise');
+        }
     }
 
     public function getParent()

@@ -9,7 +9,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         {% block stylesheets %}{% endblock %}
         {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">#}
-        <link rel="stylesheet" href="https://use.fontawesome.com/1aad733e9f.css">
+        {#<link rel="stylesheet" href="https://use.fontawesome.com/1aad733e9f.css">#}
+        <link rel="stylesheet" href="{{ asset('css/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+
         <link rel="stylesheet" type="text/css" href="{{ asset('plugins/noty/animate-min.css') }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap-datepicker-1.6.4-dist/css/bootstrap-datepicker.min.css') }}"/>
         <link href="{{ asset('css') }}/style.css" rel="stylesheet">

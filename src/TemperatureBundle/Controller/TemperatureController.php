@@ -9,6 +9,7 @@ class TemperatureController extends Controller
 {
     public function indexAction()
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
     	$em = $this->getDoctrine();
     	$categories  = $em->getRepository("TracabiliteBundle:Categorie")->getCategoriePere(200);
     
@@ -22,6 +23,7 @@ class TemperatureController extends Controller
 
     public function choixMomentAction($slugCategorie)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $em = $this->getDoctrine()->getManager();
         $categ  = $em->getRepository("TracabiliteBundle:Categorie")->findOneBySlug($slugCategorie);
         if (!$categ) {

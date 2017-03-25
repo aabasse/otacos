@@ -20,6 +20,7 @@ class ReleveController extends Controller
      */
     public function newAction(Request $request, $slugCategorie, $moment)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $em = $this->getDoctrine()->getManager();
         $categ  = $em->getRepository("TracabiliteBundle:Categorie")->findOneBySlug($slugCategorie);
         if (!$categ) {
@@ -61,6 +62,7 @@ class ReleveController extends Controller
      */
     public function showAction(Releve $releve)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $deleteForm = $this->createDeleteForm($releve);
 
         return $this->render('TemperatureBundle:Releve:show.html.twig', array(
@@ -75,6 +77,7 @@ class ReleveController extends Controller
      */
     public function editAction(Request $request, Releve $releve)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $deleteForm = $this->createDeleteForm($releve);
         $editForm = $this->createForm('TemperatureBundle\Form\ReleveType', $releve);
         $editForm->handleRequest($request);
@@ -98,6 +101,7 @@ class ReleveController extends Controller
      */
     public function deleteAction(Request $request, Releve $releve)
     {
+        $this->get('otacos_app.service')->verifierAbonnement();
         $form = $this->createDeleteForm($releve);
         $form->handleRequest($request);
 
