@@ -5,21 +5,9 @@
 {% block titre %}Accueil{% endblock %}
 	
 {% block contenu %}
-<div class="text-center">
-    {% for t in types %}
-    <a href="{{url(t.root)}}">
-    <table class="categorie">
-        <tr>
-            <td class="contImage">
-                <i class="fa {{t.icon}} fa-3x"></i>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {{t.libelle|capitalize}}
-            </td>
-        </tr>
-    </table></a>
-    {% endfor %}
-</div>
+    {% if is_granted('ROLE_ADMIN') %}
+        {{render(controller('AppBundle:Accueil:accueilAdmin'))}}
+    {% else %}
+         {{render(controller('AppBundle:Accueil:accueilUser'))}}
+    {% endif %}
 {% endblock %}

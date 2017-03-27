@@ -1,9 +1,8 @@
 {% extends "::layout.html.twig" %}
-
 {% block title %}Choisissez la categorie{% endblock %}
 {% block titre %}Choisissez la categorie{% endblock %}
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': '', 'libelle':'traçabilité'} ] %}
 {% block contenu %}
-
 <div class="text-center">
 	{% for c in categories %}
 	<a href="{{url('tracabilite_choixElement', {'slug':c.slug} )}}">

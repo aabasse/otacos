@@ -2,6 +2,8 @@
 {% block title %}eleve creation{% endblock %}
 {% block titre %}Releve creation{% endblock %}
 
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('temperature_index'), 'libelle':'temperature'}, {'url': url('temperature_releve_choix_moment', {'slugCategorie':categorie.slug}), 'libelle':categorie.libelle}, {'url': '', 'libelle':moment} ] %}
+
 {% block contenu %}
     {{ form_start(form, {'attr':{'novalidate':'novalidate', class:'form-horizontal'}}) }}
         <div class="form_row form-group offset-md-4 col-md-4">

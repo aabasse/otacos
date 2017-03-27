@@ -77,6 +77,7 @@ class TraceController extends Controller
         return $this->render('TracabiliteBundle:trace:new.html.twig', array(
             'trace' => $trace,
             'form' => $form->createView(),
+            'element' => $element,
         ));
     }
 

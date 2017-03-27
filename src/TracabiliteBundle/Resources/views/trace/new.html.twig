@@ -1,5 +1,10 @@
 {% extends "::layout.html.twig" %}
 {% block titre %}Trace creation{% endblock %}
+
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, 
+                        {'url': url('tracabilite_index'), 'libelle':'traçabilité'}, 
+                        {'url': url('tracabilite_choixElement', {'slug':element.categorie.slug}), 'libelle':element.categorie.libelle}, 
+                        {'url': '', 'libelle':element.libelle} ] %}
 {% block contenu %}
     {{ form_start(form, {'attr':{'novalidate':'novalidate', class:'form-horizontal'}} ) }}
         

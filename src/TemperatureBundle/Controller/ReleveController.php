@@ -52,7 +52,9 @@ class ReleveController extends Controller
         }
 
         return $this->render('TemperatureBundle:Releve:new.html.twig', array(
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
+            'moment'=>$moment,
+            'categorie'=>$categ,
         ));
     }
 

@@ -2,13 +2,12 @@
 
 {% block title %}Utilisateur{% endblock %}
 {% block titre %}Utilisateur{% endblock %}
-{% block filAriane %}
-<ul>
-        <li>
-            <a href="{{ path('utilisateur_index') }}">List des utilisateurs</a>
-        </li>
-    </ul>
-{% endblock %}
+
+{% if is_granted('ROLE_ADMIN') %}
+    {% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('utilisateur_index'), 'libelle':'utilisateurs'}, {'url': '', 'libelle':utilisateur}] %}
+{% else %}
+    {% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('utilisateur_salaries'), 'libelle':'salariés'}, {'url': '', 'libelle':utilisateur}] %}
+{% endif %}
 {% block contenu %}
 <div class="text-center">
     <p>Nom : {{utilisateur.username|capitalize}}</p>

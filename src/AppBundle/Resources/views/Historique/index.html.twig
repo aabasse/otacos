@@ -1,6 +1,7 @@
 {% extends "::layout.html.twig" %}
 {% block title %}Historique{% endblock %}
 {% block titre %}Historique{% endblock %}
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': '', 'libelle':'historique'}] %}
 {% block contenu %}
 <div class="text-center">
     {% for t in types %}

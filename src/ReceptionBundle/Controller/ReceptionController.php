@@ -88,6 +88,7 @@ class ReceptionController extends Controller
         return $this->render('ReceptionBundle:reception:new.html.twig', array(
             'reception' => $reception,
             'form' => $form->createView(),
+            'categorie'=>$categ,
         ));
     }
 

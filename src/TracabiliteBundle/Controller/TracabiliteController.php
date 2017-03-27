@@ -39,6 +39,7 @@ class TracabiliteController extends Controller
         return $this->render('TracabiliteBundle:tracabilite:choixElement.html.twig', array(
         	'elements'=>$elements,
             'traces'=>$traces,
+            'categorie'=>$categ,
         ));
     }
 

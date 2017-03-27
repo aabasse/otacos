@@ -1,6 +1,7 @@
 {% extends "::layout.html.twig" %}
 {% block title %}Reception creation{% endblock %}
 {% block titre %}Reception creation{% endblock %}
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('reception_index'), 'libelle':'reception'}, {'url': '', 'libelle':categorie.libelle} ] %}
 {% block contenu %}
     {{ form_start(form, {'attr':{'novalidate':'novalidate', class:'form-horizontal'}} ) }}
 

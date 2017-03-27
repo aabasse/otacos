@@ -1,9 +1,7 @@
 {% extends "::layout.html.twig" %}
-
 {% block title %}Choisissez la categorie{% endblock %}
-
 {% block titre %}Choisissez la categorie{% endblock %}
-
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': '', 'libelle':'temperature'} ] %}
 {% block contenu %}
 <div class="text-center">
 	{% for c in categories %}

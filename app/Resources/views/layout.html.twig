@@ -13,10 +13,10 @@
 				</div>
 			</div>
 			{% if is_granted('ROLE_CHEF_ENTREPRISE') %}
-			<a id="btEntLg" class="color-white hidden-sm-down btNav" href="{{ path('entreprise_show', { 'id': app.user.entreprise.id }) }}">
+			<a id="btEntLg" class="color-white hidden-sm-down btNav btn btn-outline-secondary" href="{{ path('entreprise_show', { 'id': app.user.entreprise.id }) }}">
 				{{app.user.entreprise}}
 			</a>
-			<a class="color-white hidden-md-up btNav" href="{{ path('entreprise_show', { 'id': app.user.entreprise.id }) }}">
+			<a class="color-white hidden-md-up btNav btn-outline-secondary" href="{{ path('entreprise_show', { 'id': app.user.entreprise.id }) }}">
 				<i class="fa fa-building-o" aria-hidden="true"></i>
 			</a>
 			{% endif %}
@@ -30,7 +30,7 @@
 			      <i class="fa fa-user-o" aria-hidden="true"></i> {{app.user}}
 			    </button>
 			    <div id="dropdownUser" class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-			      <a class="dropdown-item" href="#">Parametre</a>
+			      <a class="dropdown-item" href="{{ url('utilisateur_edit', {'id':app.user.id}) }}">Parametre</a>
 			      <div class="dropdown-divider"></div>
 			      <a class="dropdown-item" href="{{ url('fos_user_security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion</a>
 			    </div>
@@ -43,37 +43,54 @@
 <div class="container-fluid">
 	<div class="row">
 		<nav class="col-12 col-lg-2" id="menuLeft">
-			<ul class="menu">
-				<li>
-					<a href="{{url('accueil')}}"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a>
-				</li>
-				{% if is_granted('ROLE_ADMIN') == false %}
+			<div class="row">
+				<ul class="menu col-6 col-lg-12">
 					<li>
-						<a href="{{url('tracabilite_index')}}"><i class="fa fa-barcode" aria-hidden="true"></i> Traçabilité</a>
+						<a href="{{url('accueil')}}"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a>
 					</li>
-					<li class="nav-item">
-					<a href="{{url('temperature_index')}}"><i class="fa fa-thermometer-empty" aria-hidden="true"></i> Temperature</a>
-					</li>
-					<li>
-					<a href="{{url('reception_index')}}"><i class="fa fa-truck" aria-hidden="true"></i> Reception</a>
-					</li>
-					<li>
-					<a href="{{url('historique_index')}}"><i class="fa fa-hdd-o" aria-hidden="true"></i> Historique</a>
-					</li>
-				{% endif %}
-				{% if is_granted('ROLE_ADMIN') %}
-					<li><a href="{{url('utilisateur_index')}}"><i class="fa fa-users" aria-hidden="true"></i> Utilisateurs</a></li>
-					<li><a href="{{url('entreprise_index')}}"><i class="fa fa-building-o" aria-hidden="true"></i> Entreprise</a></li>
+					{% if is_granted('ROLE_ADMIN') == false %}
+						<li>
+							<a href="{{url('tracabilite_index')}}"><i class="fa fa-barcode" aria-hidden="true"></i> Traçabilité</a>
+						</li>
+						<li class="nav-item">
+						<a href="{{url('temperature_index')}}"><i class="fa fa-thermometer-empty" aria-hidden="true"></i> Temperature</a>
+						</li>
+						<li>
+						<a href="{{url('reception_index')}}"><i class="fa fa-truck" aria-hidden="true"></i> Reception</a>
+						</li>
+						<li>
+						<a href="{{url('historique_index')}}"><i class="fa fa-hdd-o" aria-hidden="true"></i> Historique</a>
+						</li>
+					{% endif %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<li><a href="{{url('utilisateur_index')}}"><i class="fa fa-users" aria-hidden="true"></i> Utilisateurs</a></li>
+						<li><a href="{{url('entreprise_index')}}"><i class="fa fa-building-o" aria-hidden="true"></i> Entreprise</a></li>
 
-				{% elseif is_granted('ROLE_CHEF_ENTREPRISE') %}
-					<li><a href="{{url('utilisateur_salaries')}}"><i class="fa fa-users" aria-hidden="true"></i> Salariés</a></li>
-				{% endif %}
-			</ul>
+					{% elseif is_granted('ROLE_CHEF_ENTREPRISE') %}
+						<li><a href="{{url('utilisateur_salaries')}}"><i class="fa fa-users" aria-hidden="true"></i> Salariés</a></li>
+					{% endif %}
+				</ul>
+				<div class="col-6" id="backContenu" onclick="cacherMenu()" ></div>
+			</div>
 		</nav>
-		<section class="col-12 col-lg-10 offset-lg-2" id="theContenu">
+		<section class="p-0 col-12 col-lg-10 offset-lg-2" id="theContenu">
 			<div>{% block filAriane %}{% endblock %}</div>
+			{% if liensFilAriane is defined %}
+				<div class="contFilAriane">
+					{% for l in liensFilAriane %}
+						{% if l.url != '' %}
+							<a class="lienFilAriane" href="{{ l.url }}">{{ l.libelle|capitalize }}</a>
+						{% else %}
+							<span class="lienFilAriane">{{ l.libelle|capitalize }}</span>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
 			<h1 class="text-center display-4" id="theTitre">{% block titre %}{% endblock %}</h1>
-			{% block contenu %}{% endblock %}
+			<div class="p-2">
+				{% block contenu %}{% endblock %}
+			</div>
+			
 		</section>
 	</div>
 </div>

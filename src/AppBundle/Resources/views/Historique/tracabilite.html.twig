@@ -1,6 +1,7 @@
 {% extends "::layout.html.twig" %}
 {% block title %}Historique - traçabilité{% endblock %}
 {% block titre %}Historique - traçabilité{% endblock %}
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('historique_index'), 'libelle':'historique'}, {'url': '', 'libelle':'traçabilité'} ] %}
 {% block contenu %}
 <div class="row">
 	<div id="accordion" role="tablist" aria-multiselectable="true" class="col-12">

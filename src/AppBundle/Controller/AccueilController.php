@@ -8,8 +8,26 @@ class AccueilController extends Controller
 {
     public function accueilAction()
     {
-        $types = $this->getTypes();
         return $this->render('AppBundle:Accueil:accueil.html.twig', array(
+        ));
+    }
+
+    public function accueilAdminAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $nbrEntreprise = $em->getRepository('EntrepriseBundle:Entreprise')->getNbr();
+        $nbrUtilisateur = $em->getRepository('UtilisateurBundle:Utilisateur')->getNbr();
+
+        return $this->render('AppBundle:Accueil:accueil-admin.html.twig', array(
+            'nbrEntreprise'=>$nbrEntreprise,
+            'nbrUtilisateur'=>$nbrUtilisateur,
+        ));
+    }
+
+    public function accueilUserAction()
+    {
+        $types = $this->getTypes();
+        return $this->render('AppBundle:Accueil:accueil-user.html.twig', array(
             'types' => $types,
         ));
     }

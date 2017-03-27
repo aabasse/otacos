@@ -2,13 +2,11 @@
 
 {% block title %}Modifier un utilisateur{% endblock %}
 {% block titre %}Modifier un utilisateur{% endblock %}
-{% block filAriane %}
-<ul>
-        <li>
-            <a href="{{ path('utilisateur_index') }}">List des utilisateurs</a>
-        </li>
-    </ul>
-{% endblock %}
+{% if is_granted('ROLE_ADMIN') %}
+	{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('utilisateur_index'), 'libelle':'utilisateurs'}, {'url': '', 'libelle':'modifier '~utilisateur}] %}
+{% else %}
+	{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('utilisateur_salaries'), 'libelle':'salariés'}, {'url': '', 'libelle':'modifier '~utilisateur}] %}
+{% endif %}
 {% block contenu %}
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}

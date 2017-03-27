@@ -1,9 +1,7 @@
 {% extends "::layout.html.twig" %}
-
 {% block title %}AppBundle:Accueil:accueil{% endblock %}
-
 {% block titre %}Choisissez le moment{% endblock %}
-
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('temperature_index'), 'libelle':'temperature'}, {'url': '', 'libelle':categorie.libelle} ] %}
 {% block contenu %}
 <div class="text-center">
 	{% for moment in moments %}

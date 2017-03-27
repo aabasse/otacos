@@ -2,7 +2,9 @@
 
 {% block title %}AppBundle:Accueil:accueil{% endblock %}
 
-{% block titre %}Choisissez l'élement{% endblock %}
+{% block titre %}Choisissez l'élement{% endblock %} 
+
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('tracabilite_index'), 'libelle':'traçabilité'}, {'url': '', 'libelle':categorie.libelle} ] %}
 
 {% block contenu %}
 <div class="text-center">

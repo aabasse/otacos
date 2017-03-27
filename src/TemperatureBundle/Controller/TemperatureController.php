@@ -40,6 +40,7 @@ class TemperatureController extends Controller
             'moments'=> Releve::getLesMoment(),
             'momentValideDuJour' => $momentValideDuJour,
             'iconsMoment' => $iconsMoment,
+            'categorie'=>$categ,
         ));
     }
 }

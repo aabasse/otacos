@@ -1,7 +1,7 @@
 {% extends "::layout.html.twig" %}
-
 {% block title %}Les salariés{% endblock %}
 {% block titre %}Les salariés{% endblock %}
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': '', 'libelle':'salariés'}] %}
 {% block contenu %}
     <a class="btn btn-outline-primary" href="{{ path('utilisateur_new') }}"><i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter un salarié</a>
     <table class="table table-striped table-bordered mt-2">

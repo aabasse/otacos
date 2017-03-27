@@ -2,13 +2,7 @@
 
 {% block title %}Ajouter une entreprise{% endblock %}
 {% block titre %}Ajouter une entreprise{% endblock %}
-{% block filAriane %}
-<ul>
-    <li>
-        <a href="{{ path('entreprise_index') }}">List des utilisateurs</a>
-    </li>
-</ul>
-{% endblock %}
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('entreprise_index'), 'libelle':'entreprises'}, {'url': '', 'libelle':'Ajouter une entreprise'}] %}
 {% block contenu %}
     {{ form_start(form) }}
         {{ form_widget(form) }}

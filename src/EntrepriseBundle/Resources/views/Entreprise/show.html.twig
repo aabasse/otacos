@@ -2,13 +2,7 @@
 
 {% block title %}Entreprise{% endblock %}
 {% block titre %}Entreprise{% endblock %}
-{% block filAriane %}
-<ul>
-    <li>
-        <a href="{{ path('entreprise_index') }}">List des utilisateurs</a>
-    </li>
-</ul>
-{% endblock %}
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('entreprise_index'), 'libelle':'entreprises'}, {'url': '', 'libelle':entreprise}] %}
 {% block contenu %}
 <div class="row">
 	<div class="col-6">
@@ -17,7 +11,7 @@
 		<p>Nom : {{ entreprise.nom }}</p>
 		<p>Logo : {{ entreprise.logo }}</p>
 		<div>
-		    <a class="btn btn-outline-secondary" href="{{ path('entreprise_edit', { 'id': entreprise.id }) }}">Edit</a>
+		    <a class="btn btn-outline-secondary" href="{{ path('entreprise_edit', { 'id': entreprise.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
 		    {% if is_granted('ROLE_ADMIN') %}
 
 		    	{% if entreprise.utilisateurs|length == 0 %}
