@@ -47,6 +47,18 @@ class UtilisateurController extends Controller
     public function newAction(Request $request)
     {
         $utilisateur = new Utilisateur();
+        $em = $this->getDoctrine()->getManager();
+        $idEntreprise = $request->get('entreprise');
+        if($idEntreprise != null){
+            if (!$this->isGranted('ROLE_ADMIN')) {
+                throw new HttpException(403);
+            }
+            $entreprise = $em->getRepository('EntrepriseBundle:Entreprise')->find($idEntreprise);
+            $utilisateur->setEntreprise($entreprise);
+        }
+
+
+        
 
         if ($this->isGranted('ROLE_CHEF_ENTREPRISE')) {
             $entreprise = $this->getUser()->getEntreprise();
@@ -58,7 +70,7 @@ class UtilisateurController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            
             $utilisateur->setEnabled(true); // on active l'utilisateur
             $em->persist($utilisateur);
             $em->flush($utilisateur);

@@ -26,9 +26,19 @@
 	</div>
 	<div class="col-6">
 		<h2>Salariées</h2>
+		{% if is_granted('ROLE_ADMIN') %}
+			{% set lienAjoutSalarie = path('utilisateur_new', {'entreprise':entreprise.id}) %}
+		{% else %}
+			{% set lienAjoutSalarie = path('utilisateur_new') %}
+		{% endif %}
+
+
+		<a class="btn btn-outline-primary" href="{{ lienAjoutSalarie }}"><i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter un salarié</a>
 		<ul>
 		{% for u in entreprise.utilisateurs %}
 			<li> <a href="{{ url('utilisateur_show', {'id':u.id}) }}"> {{ u|capitalize }}</a></li>
+		{% else %}
+            0 salarié.
 		{% endfor %}
 		</ul>
 	</div>

@@ -13,7 +13,8 @@
     <p>Nom : {{utilisateur.username|capitalize}}</p>
     <p>Email : {{utilisateur.email}}</p>
     {% if is_granted('ROLE_ADMIN') %}
-        <p>Entreprise : {{utilisateur.entreprise}}</p>
+
+        <p>Entreprise : {% if utilisateur.entreprise != null %} <a href="{{ url('entreprise_show', {'id':utilisateur.entreprise.id}) }}" >{{utilisateur.entreprise}}</a>  {% else %} pas d'entreprise {% endif %}</p>
         <p>Roles : {% for r in  utilisateur.roles %}
                         {% if loop.index > 1 %}, {% endif %}{{r}}
                     {% endfor %} </p>
