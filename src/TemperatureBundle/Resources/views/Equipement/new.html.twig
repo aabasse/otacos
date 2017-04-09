@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+{% block title %}Ajouter un equipements{% endblock %}
+{% block titre %}Ajouter un equipements{% endblock %}
+
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('equipement_index'), 'libelle':'equipement'}, {'url': '', 'libelle':'Ajouter un equipement'}] %}
+
+{% block contenu %}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div class="text-center"><button class="btn btn-outline-primary" type="submit">Ajouter</button></div>
+    {{ form_end(form) }}
+{% endblock %}

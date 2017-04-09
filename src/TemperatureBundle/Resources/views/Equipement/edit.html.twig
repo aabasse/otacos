@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+{% block title %}Modifier un equipements{% endblock %}
+{% block titre %}Modifier un equipements{% endblock %}
+
+{% set liensFilAriane = [ {'url': url('accueil'), 'libelle':'accueil'}, {'url': url('equipement_index'), 'libelle':'equipement'}, {'url': '', 'libelle':'Modifier un equipement'}] %}
+
+{% block contenu %}
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <div class="text-center"><button class="btn btn-outline-primary" type="submit">Modifier</button></div>
+    {{ form_end(edit_form) }}
+{% endblock %}

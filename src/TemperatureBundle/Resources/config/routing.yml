@@ -12,3 +12,7 @@ temperature_releve_new:
 
 tracabilite_trace:
     resource: "@TemperatureBundle/Resources/config/routing/releve.yml"
+
+tracabilite_equipement:
+    prefix: equipement
+    resource: "@TemperatureBundle/Resources/config/routing/equipement.yml"

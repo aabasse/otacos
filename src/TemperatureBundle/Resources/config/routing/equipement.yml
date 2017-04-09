@@ -1,0 +1,19 @@
+equipement_index:
+    path:     /
+    defaults: { _controller: "TemperatureBundle:Equipement:index" }
+    methods:  GET
+
+equipement_new:
+    path:     /new
+    defaults: { _controller: "TemperatureBundle:Equipement:new" }
+    methods:  [GET, POST]
+
+equipement_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "TemperatureBundle:Equipement:edit" }
+    methods:  [GET, POST]
+
+equipement_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "TemperatureBundle:Equipement:delete" }
+    methods:  DELETE

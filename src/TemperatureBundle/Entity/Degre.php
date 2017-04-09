@@ -29,10 +29,9 @@ class Degre
     private $releve;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="equipement", type="string", length=255)
-     */
+   * @ORM\ManyToOne(targetEntity="TemperatureBundle\Entity\Equipement")
+   * @ORM\JoinColumn(nullable=false)
+   */
     private $equipement;
 
     /**
@@ -82,30 +81,6 @@ class Degre
     }
 
     /**
-     * Set equipement
-     *
-     * @param string $equipement
-     *
-     * @return Degre
-     */
-    public function setEquipement($equipement)
-    {
-        $this->equipement = $equipement;
-
-        return $this;
-    }
-
-    /**
-     * Get equipement
-     *
-     * @return string
-     */
-    public function getEquipement()
-    {
-        return $this->equipement;
-    }
-
-    /**
      * Set releve
      *
      * @param \TemperatureBundle\Entity\Releve $releve
@@ -127,5 +102,29 @@ class Degre
     public function getReleve()
     {
         return $this->releve;
+    }
+
+    /**
+     * Set equipement
+     *
+     * @param \TemperatureBundle\Entity\Equipement $equipement
+     *
+     * @return Degre
+     */
+    public function setEquipement(\TemperatureBundle\Entity\Equipement $equipement = null)
+    {
+        $this->equipement = $equipement;
+
+        return $this;
+    }
+
+    /**
+     * Get equipement
+     *
+     * @return \TemperatureBundle\Entity\Equipement
+     */
+    public function getEquipement()
+    {
+        return $this->equipement;
     }
 }

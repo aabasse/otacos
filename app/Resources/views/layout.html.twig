@@ -68,6 +68,7 @@
 
 					{% elseif is_granted('ROLE_CHEF_ENTREPRISE') %}
 						<li><a href="{{url('utilisateur_salaries')}}"><i class="fa fa-users" aria-hidden="true"></i> Salariés</a></li>
+						<li><a href="{{url('equipement_index')}}"><i class="fa fa-list" aria-hidden="true"></i> Equipements</a></li>
 					{% endif %}
 				</ul>
 				<div class="col-6" id="backContenu" onclick="cacherMenu()" ></div>
